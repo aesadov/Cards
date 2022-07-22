@@ -5,7 +5,7 @@ import {Login} from "../features/auth/components/Login";
 import {Registration} from "../features/auth/components/Registration";
 import {Error404} from "../common/Error-404";
 import {NewPassword} from "../features/auth/components/NewPassword";
-import {Profile} from "../features/Profile/Profile";
+import {Profile} from "../features/profile/Profile";
 import {ForgotPassword} from "../features/auth/components/ForgotPassword";
 import {Navlinks} from "../features/navlink/Navlinks";
 

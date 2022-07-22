@@ -1,7 +1,7 @@
 import {AnyAction, applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux'
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {authReducer} from "../features/auth/auth-reducer";
-import {profileReducer} from "../features/Profile/profile-reducer";
+import {profileReducer} from "../features/profile/profile-reducer";
 import {appReducer} from "./app-reducer";
 
 const rootReducer = combineReducers({

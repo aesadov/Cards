@@ -2,7 +2,7 @@
   "name": "cards-nya",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://AlertDSG.github.io/cards",
+  "homepage": "https://alertdsg.github.io/Cards/",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
@@ -17,6 +17,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "axios": "^0.27.2",
+    "formic": "^0.0.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
@@ -55,6 +56,10 @@
     ]
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/react-redux": "^7.1.24",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/redux-thunk": "^2.1.0",
     "gh-pages": "^4.0.0"
   }
 }

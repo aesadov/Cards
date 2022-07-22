@@ -1,0 +1,11 @@
+.active{
+    color: gold;
+}
+.items{
+    color: black;
+}
+.body{
+    display: flex;
+    justify-content: center;
+    gap: 15px
+}

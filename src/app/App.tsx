@@ -9,12 +9,14 @@ import {Profile} from "../features/profile/Profile";
 import {ForgotPassword} from "../features/auth/components/ForgotPassword";
 import {Navlinks} from "../features/navlink/Navlinks";
 
+
 function App() {
+
     return (
         <div className="App">
             <Navlinks/>
             <Routes>
-                <Route path={'/'} element={<Navigate to={'/login'}/>}/>
+                <Route path={'/'} element={<Navigate to={'/login'}/> }/>
                 <Route path={'login'} element={<Login/>}/>
                 <Route path={'registration'} element={<Registration/>}/>
                 <Route path={'forgot'} element={<ForgotPassword/>}/>

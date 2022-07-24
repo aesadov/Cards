@@ -1,23 +1,21 @@
 import {useFormik} from 'formik';
 import React from 'react';
-import {Button, FormControl, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
+import {Button, FormControl, FormGroup, FormLabel, Grid, Paper, TextField} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {createUser} from "../auth-reducer";
 import {useAppDispatch, useAppSelector} from "../../../common/hooks/hooks";
 import {Navigate} from 'react-router-dom';
 
-type FormikErrorType = {
+export type FormikErrorType = {
     email?: string
     password?: string
     confirmPassword?: string
-
 }
 
 export const Registration = () => {
 
     const dispatch = useAppDispatch()
-    const registerStatus = useAppSelector(state => state.auth.registerStatus)
-    console.log(registerStatus)
+    const isRegister = useAppSelector(state => state.auth.isRegister)
 
     const formik = useFormik({
         initialValues: {
@@ -29,8 +27,7 @@ export const Registration = () => {
             const errors: FormikErrorType = {};
             if (!values.email) {
                 errors.email = 'Required';
-            }
-            else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
 
@@ -52,57 +49,53 @@ export const Registration = () => {
             formik.resetForm()
         },
     })
-    if(registerStatus){
+    if (isRegister) {
         return <Navigate to={'/login'}/>
     }
 
-    return <Grid container justifyContent={'center'}>
+    return <Grid container justifyContent={'center'} style={{padding: '40px'}}>
         <Grid item justifyContent={'center'}>
-            <FormControl>
-                <FormLabel>
-                    <p>
-                        To log in get registered
-                    </p>
-                    <p>or use common test account credentials:</p>
-                    <p>Email: nya-admin@nya.nya</p>
-                    <p>Password: 1qazxcvBG</p>
-                </FormLabel>
-                <form onSubmit={formik.handleSubmit}>
-                    <FormGroup>
-                        <TextField
-                            label="Email"
-                            margin="normal"
-                            {...formik.getFieldProps('email')}
-                        />
-                        {formik.touched.email && formik.errors.email ?
-                            <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
-                        <TextField
-                            type="password"
-                            label="Password"
-                            margin="normal"
-                            {...formik.getFieldProps('password')}
-                        />
-                        {formik.touched.password && formik.errors.password ?
-                            <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+            <Paper elevation={3} style={{padding: '20px'}}>
+                <FormControl>
+                    <form onSubmit={formik.handleSubmit}>
+                        <FormGroup style={{paddingBottom: '20px'}}>
+                            <TextField
+                                label="Email"
+                                margin="normal"
+                                variant="standard"
+                                {...formik.getFieldProps('email')}
+                            />
+                            {formik.touched.email && formik.errors.email ?
+                                <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                            <TextField
+                                type="password"
+                                label="Password"
+                                variant="standard"
+                                margin="normal"
+                                {...formik.getFieldProps('password')}
+                            />
+                            {formik.touched.password && formik.errors.password ?
+                                <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
 
-                        <TextField
-                            type="password"
-                            label="Confirm Password"
-                            margin="normal"
-                            {...formik.getFieldProps('confirmPassword')}
-                        />
-                        {formik.touched.confirmPassword && formik.errors.confirmPassword ?
-                            <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
+                            <TextField
+                                type="password"
+                                label="Confirm Password"
+                                variant="standard"
+                                margin="normal"
+                                {...formik.getFieldProps('confirmPassword')}
+                            />
+                            {formik.touched.confirmPassword && formik.errors.confirmPassword ?
+                                <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
 
-                        <Button type={'submit'} variant={'contained'} color={'primary'}>
-                            Login
-                        </Button>
-                        <h2>Do you have ad account?</h2>
+                            <Button type={'submit'} variant={'contained'} color={'primary'} style={{marginTop: '20px'}}>
+                                Sign Up
+                            </Button>
+                        </FormGroup>
+                        <h2 style={{paddingBottom: '10px'}}>Do you have an account?</h2>
                         <NavLink to={'/login'}>Sign In</NavLink>
-                    </FormGroup>
-                </form>
-            </FormControl>
-
+                    </form>
+                </FormControl>
+            </Paper>
         </Grid>
     </Grid>
 

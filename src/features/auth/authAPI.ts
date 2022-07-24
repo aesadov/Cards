@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 
 export const instance = axios.create({
@@ -7,7 +7,13 @@ export const instance = axios.create({
 })
 
 export const authAPI = {
-
+    registration: (data: RegisterType) => {
+        return instance.post<AxiosResponse<{ response: { data: { error: string } } }>>(`auth/register`, data)
+    }
 }
+// `https://neko-back.herokuapp.com/2.0/`
 
-    // `https://neko-back.herokuapp.com/2.0/`
+export type RegisterType = {
+    email: string
+    password: string
+}

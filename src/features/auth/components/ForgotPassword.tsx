@@ -9,14 +9,10 @@ import {CheckEmail} from "./checkEmail/CheckEmail";
 
 export const ForgotPassword = () => {
 
-    const dataFromRequest = {
-        from: "test-front-admin <alertdsg@gmail.com>",
-        message: `<div style="background-color: lime; padding: 15px">
-password recovery link: 
-<a href='http://localhost:3000/#/set-new-password/$token$'>
-link</a>
-</div>`,
-    }
+    // const dataFromRequest = {
+    //     from: "test-front-admin <alertdsg@gmail.com>",
+    //     message: `<div style="background-color: lime; padding: 15px">password recovery link: <a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`,
+    // }
 
     const dispatch = useAppDispatch()
     const isChange = useAppSelector(state => state.auth.isChange)
@@ -35,7 +31,7 @@ link</a>
             return errors;
         },
         onSubmit: values => {
-            dispatch(createNewPassword({email: values.email, ...dataFromRequest}))
+            dispatch(createNewPassword({email: values.email, message: `<div style="background-color: lime; padding: 15px">password recovery link: <a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`, from: "test-front-admin <alertdsg@gmail.com>",}))
             formik.resetForm()
         },
     })

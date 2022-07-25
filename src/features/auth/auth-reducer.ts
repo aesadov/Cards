@@ -1,5 +1,5 @@
 
-const initialState= {}
+ let initialState = {}
 
 
 type InitialStateType = typeof initialState

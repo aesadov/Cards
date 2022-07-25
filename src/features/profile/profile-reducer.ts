@@ -1,16 +1,30 @@
+let initialState = {
+    value: ''
+}
 
+type InitialStateType = typeof initialState;
+export type ProfileActionsType = ReturnType<typeof logoutAC>
 
-const initialState= {}
+const LOG_OUT_VALUE = "LOG_OUT_VALUE";
 
-
-type InitialStateType = typeof initialState
-
-export const profileReducer = (state: InitialStateType, action: ProfileActionsType): InitialStateType => {
+const logoutReducer = (state: InitialStateType = initialState, action: ProfileActionsType): InitialStateType => {
     switch (action.type) {
+        case 'LOG_OUT_VALUE':
+            return {...state, }
+
         default:
             return {...state}
     }
 }
 
+    const logoutAC = () => {
+        return {
+            type: "LOG_OUT_VALUE"
+        } as const
+    }
 
-export type ProfileActionsType = any
+
+
+
+
+

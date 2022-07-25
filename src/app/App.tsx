@@ -20,7 +20,7 @@ function App() {
                 <Route path={'login'} element={<Login/>}/>
                 <Route path={'registration'} element={<Registration/>}/>
                 <Route path={'forgot'} element={<ForgotPassword/>}/>
-                <Route path={'set-new-password'} element={<NewPassword/>}/>
+                <Route path={'set-new-password/:token'} element={<NewPassword/>}/>
                 <Route path={'profile'} element={<Profile/>}/>
                 <Route path={'/*'} element={<Error404/>}/>
             </Routes>

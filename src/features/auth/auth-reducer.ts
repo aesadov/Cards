@@ -1,11 +1,22 @@
-import {authAPI, LoginParamsType, UserType} from './authAPI'
+import {authAPI, LoginParamsType, UserType, RegisterType, UpdatePasswordType} from './authAPI'
 import {AppThunk} from '../../app/store';
+
+
+const SET_REGISTER_STATUS = 'AUTH/SET_REGISTER_STATUS'
+const SET_ERROR_STATUS = 'AUTH/SET_ERROR_STATUS'
+const REQUEST_FOR_NEW_PASSWORD = 'AUTH/REQUEST_FOR_NEW_PASSWORD'
 
 const initialState = {
     isLoggedIn: false,
     user: {} as UserType,
-    error: null as string | null
+    error: null as string | null,
+    isRegister: false,
+    isChange: false,
+    email: null as null | string
 }
+export type StatusType = null | string
+
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 type InitialStateType = typeof initialState
 
@@ -17,6 +28,10 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
             return {...state, user: action.user}
         case 'auth/SET_ERROR_STATUS':
             return {...state, error: action.error}
+        case SET_REGISTER_STATUS:
+            return {...state, isRegister: action.status}
+        case REQUEST_FOR_NEW_PASSWORD:
+            return {...state, isChange: action.payload.status, email: action.payload.email}
         default:
             return {...state}
     }
@@ -45,4 +60,60 @@ export const setUserAC = (user: UserType) =>
 export const setErrorStatusAC = (error: string) =>
     ({type: 'auth/SET_ERROR_STATUS', error} as const)
 
-export type AuthActionsType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setUserAC> | ReturnType<typeof setErrorStatusAC>
+
+export const setRegisterStatus = (status: boolean) => {
+    return {
+        type: SET_REGISTER_STATUS,
+        status
+    } as const
+}
+export const setErrorStatus = (status: string) => {
+    return {
+        type: SET_ERROR_STATUS,
+        status
+    } as const
+}
+export const setRequestNewPassword = (status: boolean, email: null | string) => {
+    return {
+        type: REQUEST_FOR_NEW_PASSWORD,
+        payload: {
+            status,
+            email
+        }
+    } as const
+}
+
+
+export const createUser = (data: RegisterType): AppThunk => (dispatch) => {
+    authAPI.registration(data)
+        .then(response => {
+            dispatch(setRegisterStatus(true))
+        })
+        .catch(response => {
+            dispatch(setErrorStatus(response.response.data.error))
+        })
+}
+
+export const createNewPassword = (data: UpdatePasswordType): AppThunk => (dispatch) => {
+
+    let {email} = data
+
+    authAPI.update(data)
+        .then(response => {
+            dispatch(setRequestNewPassword(true, email))
+        })
+        .catch(response => {
+            console.log(response)
+        })
+}
+
+export type AuthActionsType =
+    ReturnType<typeof setIsLoggedInAC>
+    | ReturnType<typeof setUserAC>
+    | ReturnType<typeof setErrorStatusAC>
+    | ReturnType<typeof setRegisterStatus>
+    | ReturnType<typeof setRequestNewPassword>
+
+// export type SetRegisterStatus =
+// // export type SetErrorStatus = ReturnType<typeof setErrorStatus>
+// export type SetERequestNewPassword = ReturnType<typeof setRequestNewPassword>

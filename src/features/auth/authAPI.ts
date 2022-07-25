@@ -9,8 +9,25 @@ export const instance = axios.create({
 export const authAPI = {
     login(data: LoginParamsType) {
         return instance.post<LoginParamsType, AxiosResponse<UserType>>('auth/login', data)
+    },
+    registration: (data: RegisterType) => {
+        return instance.post<AxiosResponse<{ response: { data: { error: string } } }>>(`auth/register`, data)
+    },
+    update: (data: UpdatePasswordType) => {
+        return axios.post(`https://neko-back.herokuapp.com/2.0/auth/forgot`, data, {withCredentials: true})
     }
 
+}
+
+export type RegisterType = {
+    email: string
+    password: string
+}
+
+export type UpdatePasswordType = {
+    email: string
+    from: string
+    message: string
 }
 
 export type LoginParamsType = {

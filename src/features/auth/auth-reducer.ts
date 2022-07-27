@@ -8,6 +8,7 @@ const REQUEST_FOR_NEW_PASSWORD = 'AUTH/REQUEST_FOR_NEW_PASSWORD'
 
 const initialState = {
     isLoggedIn: false,
+    // user: null as null | UserType,
     user: {} as UserType,
     error: null as string | null,
     isRegister: false,
@@ -25,13 +26,14 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
         case 'auth/SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.value}
         case 'auth/SET-USER':
-            return {...state, user: action.user}
+            return {...state, user: {...action.user}}
         case 'auth/SET_ERROR_STATUS':
             return {...state, error: action.error}
         case SET_REGISTER_STATUS:
             return {...state, isRegister: action.status}
         case REQUEST_FOR_NEW_PASSWORD:
             return {...state, isChange: action.payload.status, email: action.payload.email}
+
         default:
             return {...state}
     }

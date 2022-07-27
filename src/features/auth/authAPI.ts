@@ -15,9 +15,28 @@ export const authAPI = {
     },
     update: (data: UpdatePasswordType) => {
         return axios.post(`https://neko-back.herokuapp.com/2.0/auth/forgot`, data, {withCredentials: true})
+    },
+    logout: () => {
+        return instance.delete('auth/me', {})
+},
+    updateUser: (data: UpdateUserType) => {
+        return instance.put<UpdateUserType, AxiosResponse<UserType>>('auth/me', data)
+    },
+
+    me : () => {
+        return instance.post<AxiosResponse<UserType>>('auth/me', {})
     }
 
 }
+
+
+export type UpdateUserType = {
+    name?: string,
+    avatar?: string,
+}
+
+
+
 
 export type RegisterType = {
     email: string

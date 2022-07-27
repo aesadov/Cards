@@ -1,15 +1,33 @@
 
 
-const initialState= {}
+const initialState= {
+    isInitialized: false
+}
 
 
 type InitialStateType = typeof initialState
 
-export const appReducer = (state: InitialStateType, action: AppActionsType): InitialStateType => {
+export const appReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
+        case "IS_INITIALIZED":
+            return {...state, isInitialized: action.isInitialized}
         default:
             return {...state}
     }
 }
 
-export type AppActionsType = any
+
+const IS_INITIALIZED = 'IS_INITIALIZED'
+
+
+
+
+export const initialAC = (isInitialized: boolean) => {
+    return {
+        type: 'IS_INITIALIZED',
+        isInitialized
+    }
+
+}
+
+export type AppActionsType = ReturnType<typeof initialAC>

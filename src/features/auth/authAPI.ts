@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 
 
 export const instance = axios.create({
-    baseURL: 'http://localhost:7542/2.0/', // `https://neko-back.herokuapp.com/2.0/`
+    baseURL: 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -19,24 +19,19 @@ export const authAPI = {
     logout: () => {
         return instance.delete('auth/me', {})
 },
-    updateUser: (data: UpdateUserType) => {
-        return instance.put<UpdateUserType, AxiosResponse<UserType>>('auth/me', data)
+    updateUserName: (name: string) => {
+        return instance.put('auth/me', {name})
     },
 
     me : () => {
-        return instance.post<AxiosResponse<UserType>>('auth/me', {})
+        return instance.post('auth/me', {})
     }
-
 }
-
 
 export type UpdateUserType = {
-    name?: string,
-    avatar?: string,
+    name: string,
+    avatar: string,
 }
-
-
-
 
 export type RegisterType = {
     email: string
@@ -70,3 +65,5 @@ export type UserType = {
 
     error?: string
 }
+
+// `https://neko-back.herokuapp.com/2.0/`

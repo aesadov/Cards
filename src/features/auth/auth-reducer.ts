@@ -1,5 +1,6 @@
 import {authAPI, LoginParamsType, UserType, RegisterType, UpdatePasswordType} from './authAPI'
 import {AppThunk} from '../../app/store';
+import {initialAC} from "../../app/app-reducer";
 
 
 const SET_REGISTER_STATUS = 'AUTH/SET_REGISTER_STATUS'
@@ -8,16 +9,14 @@ const REQUEST_FOR_NEW_PASSWORD = 'AUTH/REQUEST_FOR_NEW_PASSWORD'
 
 const initialState = {
     isLoggedIn: false,
-    // user: null as null | UserType,
     user: {} as UserType,
     error: null as string | null,
     isRegister: false,
     isChange: false,
     email: null as null | string
 }
-export type StatusType = null | string
 
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type StatusType = null | string
 
 type InitialStateType = typeof initialState
 
@@ -26,7 +25,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
         case 'auth/SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.value}
         case 'auth/SET-USER':
-            return {...state, user: {...action.user}}
+            return {...state, user: {...state.user,...action.user}}
         case 'auth/SET_ERROR_STATUS':
             return {...state, error: action.error}
         case SET_REGISTER_STATUS:
@@ -37,20 +36,6 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
         default:
             return {...state}
     }
-}
-
-export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
-
-    authAPI.login(data)
-
-        .then(res => {
-            dispatch(setIsLoggedInAC(true))
-            dispatch(setUserAC(res.data))
-        })
-        .catch(response => {
-            dispatch(setErrorStatusAC(response.response.data.error))
-            console.log(response.response.data.error)
-        })
 }
 
 export const setIsLoggedInAC = (value: boolean) =>
@@ -75,6 +60,36 @@ export const setErrorStatus = (status: string) => {
         status
     } as const
 }
+
+export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
+
+    authAPI.login(data)
+
+        .then(res => {
+            console.log(res.data)
+            dispatch(setIsLoggedInAC(true))
+            dispatch(setUserAC(res.data))
+        })
+        .catch(response => {
+            dispatch(setErrorStatusAC(response.response.data.error))
+            console.log(response.response.data.error)
+        })
+}
+
+export const meThunkAC = (): AppThunk => (dispatch) => {
+
+    dispatch(initialAC(true))
+    authAPI.me().then((res) => {
+        console.log('meThunk', res)
+            dispatch(setUserAC(res.data))
+            dispatch(initialAC(false))
+            dispatch(setIsLoggedInAC(true))
+        }
+    )
+
+}
+
+
 export const setRequestNewPassword = (status: boolean, email: null | string) => {
     return {
         type: REQUEST_FOR_NEW_PASSWORD,
@@ -109,13 +124,21 @@ export const createNewPassword = (data: UpdatePasswordType): AppThunk => (dispat
         })
 }
 
+export const editNameThunkAC = (name: string ): AppThunk => (dispatch) => {
+    authAPI.updateUserName(name)
+        .then((res) => {
+                dispatch(setUserAC(res.data))
+            }
+        ).catch((e) => {
+        console.log(e)
+    })
+
+
+}
+
 export type AuthActionsType =
     ReturnType<typeof setIsLoggedInAC>
     | ReturnType<typeof setUserAC>
     | ReturnType<typeof setErrorStatusAC>
     | ReturnType<typeof setRegisterStatus>
     | ReturnType<typeof setRequestNewPassword>
-
-// export type SetRegisterStatus =
-// // export type SetErrorStatus = ReturnType<typeof setErrorStatus>
-// export type SetERequestNewPassword = ReturnType<typeof setRequestNewPassword>

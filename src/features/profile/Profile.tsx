@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import style from './profile.module.css';
 import Avatar from '../../assets/Male-Avatar.png'
 import {useDispatch} from "react-redux";
@@ -12,9 +12,9 @@ import {EditableSpan} from "./EditableProfileSpan";
 
 export const Profile = () => {
 
-    // useEffect(() =>{
-    //        dispatch(meThunkAC())
-    // },[])
+    useLayoutEffect(() =>{
+           dispatch(meThunkAC())
+    },[])
 
 
 
@@ -37,8 +37,6 @@ export const Profile = () => {
     // if (!userName) {
     //     return <Navigate to={'/login'}/>
     // }
-
-
 
     // if (isLoggedIn ) {
     //     return <Profile/>

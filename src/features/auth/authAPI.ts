@@ -15,8 +15,20 @@ export const authAPI = {
     },
     update: (data: UpdatePasswordType) => {
         return axios.post(`https://neko-back.herokuapp.com/2.0/auth/forgot`, data, {withCredentials: true})
-    }
+    },
+    setNewPass: (data: SetNewPassType) => {
+        return instance.post<SetNewPassType, AxiosResponse<SetNewPassResponseType>>('auth/set-new-password', data)
+    },
+}
 
+export type SetNewPassType = {
+    password: string
+    resetPasswordToken: string
+}
+
+export type SetNewPassResponseType = {
+    info: 'setNewPassword success —ฅ/ᐠ.̫ .ᐟ\ฅ—'
+    error: string;
 }
 
 export type RegisterType = {

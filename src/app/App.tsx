@@ -9,31 +9,31 @@ import {Profile} from "../features/profile/Profile";
 import {ForgotPassword} from "../features/auth/components/ForgotPassword";
 import {Navlinks} from "../features/navlink/Navlinks";
 import {useEffect} from "react";
-import {useDispatch} from "react-redux";
 import {useAppDispatch, useAppSelector} from "../common/hooks/hooks";
+import {meThunkAC} from "../features/auth/auth-reducer";
 
 function App() {
 
-    // const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
 
-    // const initial = useAppSelector(state => state.app.isInitialized)
-    // const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    //
-    // useEffect(() =>{
-    //        dispatch(meThunkAC())
-    //
-    // },[])
-    //
-    // if(initial) {
-    //     return <h1>Loading</h1>
-    // }
+    const initial = useAppSelector(state => state.app.isInitialized)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+
+    useEffect(() =>{
+        if(!isLoggedIn){
+            dispatch(meThunkAC())
+        }
+    },[])
+
+    if(initial) {
+        return <h1 style={{textAlign: 'center', marginTop: '150px'}}>Loading...</h1>
+    }
 
     return (
         <div className="App">
             <Navlinks/>
             <Routes>
-                <Route path={'/'} element={  <Navigate to={ '/login'}/> }/>
-                {/*<Route path={'/'} element={  <Navigate to={ isLoggedIn ? '/profile' : '/login'}/> }/>*/}
+                <Route path={'/'} element={<Navigate to={'/login'}/>}/>
                 <Route path={'login'} element={<Login/>}/>
                 <Route path={'registration'} element={<Registration/>}/>
                 <Route path={'forgot'} element={<ForgotPassword/>}/>

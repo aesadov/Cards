@@ -1,23 +1,19 @@
 import React, {ChangeEvent, useState} from "react";
-import {useAppSelector} from "../../common/hooks/hooks";
 
 type EditableSpanPropsType = {
     name: string,
     callback: (name: string) => void,
-
 }
 
-export function EditableSpan(props: EditableSpanPropsType) {
-
+export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
+    console.log('EditableSpan')
 
     const [name, setName] = useState(props.name)
     let [editMode, setEditMode] = useState(false)
 
 
-
     const activateEditMode = () => {
         setEditMode(true)
-        setName(props.name)
     }
 
     const activateViewMode = () => {
@@ -29,7 +25,10 @@ export function EditableSpan(props: EditableSpanPropsType) {
         setName(e.currentTarget.value)
     }
 
-    return editMode ? <input value={name} onChange={onChangeTitleHandler} onBlur={activateViewMode} autoFocus/>
-        : <span onDoubleClick={activateEditMode}>{name}</span>
-// : <span onDoubleClick={activateEditMode}>{!name ? "Opps" : name}</span>
-}
+    return (
+        <>
+            {editMode ? <input value={name} onChange={onChangeTitleHandler} onBlur={activateViewMode} autoFocus/>
+                : <span onDoubleClick={activateEditMode}>{name || "not name"}</span>}
+        </>
+    )
+})

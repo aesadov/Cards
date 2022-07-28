@@ -1,53 +1,32 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 import style from './profile.module.css';
 import Avatar from '../../assets/Male-Avatar.png'
-import {useDispatch} from "react-redux";
-import {instance} from "../auth/authAPI";
 import {useAppDispatch, useAppSelector} from "../../common/hooks/hooks";
-import {editNameThunkAC, logoutThunkAC, meThunkAC} from "./profile-reducer";
+import {logoutThunkAC} from "./profile-reducer";
 import {Navigate} from "react-router-dom";
 import {EditableSpan} from "./EditableProfileSpan";
+import {editNameThunkAC} from "../auth/auth-reducer";
 
 
 
-export const Profile = () => {
-
-    useLayoutEffect(() =>{
-           dispatch(meThunkAC())
-    },[])
-
-
-
+export const Profile = React.memo(() => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-
-    const userName = useAppSelector(state => state.auth.user.name)
-    const userAvatar = useAppSelector(state => state.auth.user.avatar)
+    const {name, avatar, email, publicCardPacksCount} = useAppSelector(state => state.auth.user)
 
     const dispatch = useAppDispatch();
 
 
-    const logoutHandler = () => {
+    const logoutHandler = useCallback(() => {
         dispatch(logoutThunkAC())
-    }
+    },[dispatch])
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
 
-    // if (!userName) {
-    //     return <Navigate to={'/login'}/>
-    // }
-
-    // if (isLoggedIn ) {
-    //     return <Profile/>
-    // }
-
     const changeNameHandler = (name: string) => {
-        dispatch(editNameThunkAC({name, avatar: userAvatar}))
+        dispatch(editNameThunkAC(name))
     }
-
-
-
 
     return (
         <div>
@@ -60,28 +39,19 @@ export const Profile = () => {
             </div>
 
             <img className={style.avatar}
-                 src={Avatar}
+                 src={avatar ? avatar :Avatar}
                  alt="Bro"
             />
 
-
-            {/*<div><input value={name} className={style.nameInput} type="Text"/></div>*/}
-            {/*<div><input value={userEmail} className={style.emailInput} type="Text"/></div>*/}
-
-
-
             <li>
-                <EditableSpan name={userName} callback={changeNameHandler}/>
-                {/*<EditableSpan avatar={}/>*/}
-                {/*<div className={style.nameInput} onDoubleClick={changeNameHandler}>Name</div>*/}
-                {/*<div className={style.emailInput} onDoubleClick={changeAvatarHandler}>Email</div>*/}
+                <EditableSpan name={name} callback={changeNameHandler}/>
+                <h2>{email}</h2>
+                <h2> Packs: {publicCardPacksCount}</h2>
             </li>
             <div>
                 <button onClick={logoutHandler} className={style.button}>LOG OUT</button>
             </div>
-
-
         </div>
     );
-};
+});
 

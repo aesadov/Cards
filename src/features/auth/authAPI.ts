@@ -19,14 +19,21 @@ export const authAPI = {
     logout: () => {
         return instance.delete('auth/me', {})
 },
-    updateUser: (data: UpdateUserType) => {
-        return instance.put<UpdateUserType, AxiosResponse<UserType>>('auth/me', data)
+    updateUserName: (name: string) => {
+        return instance.put('auth/me', {name})
     },
 
     me : () => {
-        return instance.post<AxiosResponse<UserType>>('auth/me', {})
-    }
+        return instance.post<{},AxiosResponse<UserType>>('auth/me', {})
+    },
+    setNewPass: (data: SetNewPassType) => {
+        return instance.post<SetNewPassType, AxiosResponse<SetNewPassResponseType>>('auth/set-new-password', data)
+    },
+}
 
+export type SetNewPassType = {
+    password: string
+    resetPasswordToken: string
 }
 
 
@@ -35,8 +42,10 @@ export type UpdateUserType = {
     avatar?: string,
 }
 
-
-
+export type SetNewPassResponseType = {
+    info: string
+    error: string;
+}
 
 export type RegisterType = {
     email: string

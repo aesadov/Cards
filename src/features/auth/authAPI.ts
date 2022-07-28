@@ -18,25 +18,33 @@ export const authAPI = {
     },
     logout: () => {
         return instance.delete('auth/me', {})
-},
+    },
     updateUser: (data: UpdateUserType) => {
         return instance.put<UpdateUserType, AxiosResponse<UserType>>('auth/me', data)
     },
 
     me : () => {
         return instance.post<AxiosResponse<UserType>>('auth/me', {})
-    }
-
+    },
+    setNewPass: (data: SetNewPassType) => {
+        return instance.post<SetNewPassType, AxiosResponse<SetNewPassResponseType>>('auth/set-new-password', data)
+    },
 }
 
+export type SetNewPassType = {
+    password: string
+    resetPasswordToken: string
+}
 
 export type UpdateUserType = {
     name?: string,
     avatar?: string,
 }
 
-
-
+export type SetNewPassResponseType = {
+    info: string
+    error: string;
+}
 
 export type RegisterType = {
     email: string

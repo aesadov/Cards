@@ -1,5 +1,6 @@
 import {authAPI, LoginParamsType, UserType, RegisterType, UpdatePasswordType} from './authAPI'
 import {AppThunk} from '../../app/store';
+import {initialAC} from "../../app/app-reducer";
 
 
 const SET_REGISTER_STATUS = 'AUTH/SET_REGISTER_STATUS'
@@ -138,7 +139,7 @@ export const setNewPassTC = (password: string, resetPasswordToken: string): AppT
 export const editNameThunkAC = (name: string ): AppThunk => (dispatch) => {
     authAPI.updateUserName(name)
         .then((res) => {
-                dispatch(setUserAC(res.data))
+                dispatch(setUserAC(res.data.updatedUser))
             }
         ).catch((e) => {
         console.log(e)

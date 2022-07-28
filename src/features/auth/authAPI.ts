@@ -24,7 +24,7 @@ export const authAPI = {
     },
 
     me : () => {
-        return instance.post<AxiosResponse<UserType>>('auth/me', {})
+        return instance.post<{},AxiosResponse<UserType>>('auth/me', {})
     },
     setNewPass: (data: SetNewPassType) => {
         return instance.post<SetNewPassType, AxiosResponse<SetNewPassResponseType>>('auth/set-new-password', data)

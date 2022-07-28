@@ -24,11 +24,9 @@ export const Profile = React.memo(() => {
         return <Navigate to={'/login'}/>
     }
 
-
     const changeNameHandler = (name: string) => {
         dispatch(editNameThunkAC(name))
     }
-
 
     return (
         <div>
@@ -53,8 +51,6 @@ export const Profile = React.memo(() => {
             <div>
                 <button onClick={logoutHandler} className={style.button}>LOG OUT</button>
             </div>
-
-
         </div>
     );
 });

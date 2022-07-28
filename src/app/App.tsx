@@ -33,7 +33,7 @@ function App() {
         <div className="App">
             <Navlinks/>
             <Routes>
-                <Route path={'/'} element={  <Navigate to={'/login'}/> }/>
+                <Route path={'/'} element={<Navigate to={'/login'}/>}/>
                 <Route path={'login'} element={<Login/>}/>
                 <Route path={'registration'} element={<Registration/>}/>
                 <Route path={'forgot'} element={<ForgotPassword/>}/>

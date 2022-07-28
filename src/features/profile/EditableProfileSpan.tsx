@@ -30,7 +30,7 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     return (
         <>
             {editMode ? <input value={name} onChange={onChangeTitleHandler} onBlur={activateViewMode} autoFocus/>
-                : <span onDoubleClick={activateEditMode}>{name || "ffff"}</span>}
+                : <span onDoubleClick={activateEditMode}>{name || "not name"}</span>}
         </>
     )
 })

@@ -1,10 +1,8 @@
 import React, {ChangeEvent, useState} from "react";
-import {useAppSelector} from "../../common/hooks/hooks";
 
 type EditableSpanPropsType = {
     name: string,
     callback: (name: string) => void,
-
 }
 
 export const EditableSpan = React.memo((props: EditableSpanPropsType) => {

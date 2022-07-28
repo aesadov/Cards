@@ -1,11 +1,11 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 import style from './profile.module.css';
 import Avatar from '../../assets/Male-Avatar.png'
 import {useAppDispatch, useAppSelector} from "../../common/hooks/hooks";
 import {logoutThunkAC} from "./profile-reducer";
 import {Navigate} from "react-router-dom";
 import {EditableSpan} from "./EditableProfileSpan";
-import {editNameThunkAC, meThunkAC} from "../auth/auth-reducer";
+import {editNameThunkAC} from "../auth/auth-reducer";
 
 
 
@@ -44,8 +44,8 @@ export const Profile = React.memo(() => {
             />
 
             <li>
-                <h2>User name: <EditableSpan name={name} callback={changeNameHandler}/></h2>
-                <h2>email: {email}</h2>
+                <EditableSpan name={name} callback={changeNameHandler}/>
+                <h2>{email}</h2>
                 <h2> Packs: {publicCardPacksCount}</h2>
             </li>
             <div>

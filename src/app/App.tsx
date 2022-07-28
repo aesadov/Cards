@@ -9,9 +9,8 @@ import {Profile} from "../features/profile/Profile";
 import {ForgotPassword} from "../features/auth/components/ForgotPassword";
 import {Navlinks} from "../features/navlink/Navlinks";
 import {useEffect} from "react";
-import {useDispatch} from "react-redux";
-import {meThunkAC} from "../features/profile/profile-reducer";
 import {useAppDispatch, useAppSelector} from "../common/hooks/hooks";
+import {meThunkAC} from "../features/auth/auth-reducer";
 
 function App() {
 
@@ -21,19 +20,20 @@ function App() {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
     useEffect(() =>{
-           dispatch(meThunkAC())
-
+        if(!isLoggedIn){
+            dispatch(meThunkAC())
+        }
     },[])
 
     if(initial) {
-        return <h1>Loading</h1>
+        return <h1 style={{textAlign: 'center', marginTop: '150px'}}>Loading...</h1>
     }
 
     return (
         <div className="App">
             <Navlinks/>
             <Routes>
-                <Route path={'/'} element={  <Navigate to={ isLoggedIn ? '/profile' : '/login'}/> }/>
+                <Route path={'/'} element={<Navigate to={'/login'}/>}/>
                 <Route path={'login'} element={<Login/>}/>
                 <Route path={'registration'} element={<Registration/>}/>
                 <Route path={'forgot'} element={<ForgotPassword/>}/>

@@ -21,8 +21,6 @@ const initialState = {
 }
 export type StatusType = null | string
 
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-
 type InitialStateType = typeof initialState
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
@@ -56,6 +54,20 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
             dispatch(setLoginErrorStatusAC(response.response.data.error))
         })
 }
+
+export const meThunkAC = (): AppThunk => (dispatch) => {
+
+    dispatch(initialAC(true))
+    authAPI.me().then((res) => {
+            console.log('meThunk', res)
+            dispatch(setUserAC(res.data))
+            dispatch(initialAC(false))
+            dispatch(setIsLoggedInAC(true))
+        }
+    )
+
+}
+
 export const setChangePassStatusAC = (status: boolean) =>
     ({type: SET_CHANGE_PASS_STATUS, status} as const)
 
@@ -118,11 +130,22 @@ export const createNewPassword = (data: UpdatePasswordType): AppThunk => (dispat
 export const setNewPassTC = (password: string, resetPasswordToken: string): AppThunk => (dispatch) => {
     authAPI.setNewPass({password, resetPasswordToken})
         .then(res => {
-                dispatch(setChangePassStatusAC(true))
+            dispatch(setChangePassStatusAC(true))
         })
         .catch(res => {console.log(res)})
 }
 
+export const editNameThunkAC = (name: string ): AppThunk => (dispatch) => {
+    authAPI.updateUserName(name)
+        .then((res) => {
+                dispatch(setUserAC(res.data))
+            }
+        ).catch((e) => {
+        console.log(e)
+    })
+
+
+}
 
 export type AuthActionsType =
     ReturnType<typeof setIsLoggedInAC>

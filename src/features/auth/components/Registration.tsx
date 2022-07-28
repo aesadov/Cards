@@ -16,6 +16,7 @@ export const Registration = () => {
 
     const dispatch = useAppDispatch()
     const isRegister = useAppSelector(state => state.auth.isRegister)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
     const formik = useFormik({
         initialValues: {
@@ -49,7 +50,7 @@ export const Registration = () => {
             formik.resetForm()
         },
     })
-    if (isRegister) {
+    if (isRegister || isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
 
@@ -98,5 +99,4 @@ export const Registration = () => {
             </Paper>
         </Grid>
     </Grid>
-
 }

@@ -17,6 +17,7 @@ export const Registration = () => {
     const dispatch = useAppDispatch()
     const isRegister = useAppSelector(state => state.auth.isRegister)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const status = useAppSelector(state => state.app.status)
 
     const formik = useFormik({
         initialValues: {
@@ -88,12 +89,12 @@ export const Registration = () => {
                             {formik.touched.confirmPassword && formik.errors.confirmPassword ?
                                 <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
 
-                            <Button type={'submit'} variant={'contained'} color={'primary'} style={{marginTop: '20px'}}>
+                            <Button disabled={status === 'loading'} type={'submit'} variant={'contained'} color={'primary'} style={{marginTop: '20px'}}>
                                 Sign Up
                             </Button>
                         </FormGroup>
-                        <h2 style={{paddingBottom: '10px'}}>Do you have an account?</h2>
-                        <NavLink to={'/login'}>Sign In</NavLink>
+                        <h2 style={{paddingBottom: '10px', opacity: '.7'}}>Do you have an account?</h2>
+                        <NavLink to={'/login'} style={{color: 'blue'}}>Sign In</NavLink>
                     </form>
                 </FormControl>
             </Paper>

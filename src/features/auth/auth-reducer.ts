@@ -1,6 +1,6 @@
 import {authAPI, LoginParamsType, UserType, RegisterType, UpdatePasswordType} from './authAPI'
 import {AppThunk} from '../../app/store';
-import {initialAC} from "../../app/app-reducer";
+import {initialAC, setAppErrorAC, setAppStatusAC} from "../../app/app-reducer";
 
 
 
@@ -44,32 +44,6 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
     }
 }
 
-export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
-
-    authAPI.login(data)
-
-        .then(res => {
-            dispatch(setIsLoggedInAC(true))
-            dispatch(setUserAC(res.data))
-        })
-        .catch(response => {
-            dispatch(setLoginErrorStatusAC(response.response.data.error))
-        })
-}
-
-export const meThunkAC = (): AppThunk => (dispatch) => {
-
-    dispatch(initialAC(true))
-    authAPI.me().then((res) => {
-            console.log('meThunk', res)
-            dispatch(setUserAC(res.data))
-            dispatch(initialAC(false))
-            dispatch(setIsLoggedInAC(true))
-        }
-    )
-
-}
-
 export const setChangePassStatusAC = (status: boolean) =>
     ({type: SET_CHANGE_PASS_STATUS, status} as const)
 
@@ -81,7 +55,6 @@ export const setUserAC = (user: UserType) =>
 
 export const setLoginErrorStatusAC = (error: string) =>
     ({type: SET_LOGIN_ERROR_STATUS, error} as const)
-
 
 export const setRegisterStatus = (status: boolean) => {
     return {
@@ -105,47 +78,100 @@ export const setRequestNewPassword = (status: boolean, email: null | string) => 
     } as const
 }
 
+export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    authAPI.login(data)
+
+        .then(res => {
+            dispatch(setIsLoggedInAC(true))
+            dispatch(setUserAC(res.data))
+        })
+        .catch(response => {
+            dispatch(setLoginErrorStatusAC(response.response.data.error))
+            dispatch(setAppErrorAC(response.response.data.error))
+        })
+        .finally(()=> {
+            dispatch(setAppStatusAC('succeeded'))
+        })
+}
+
+export const meThunkAC = (): AppThunk => (dispatch) => {
+
+    dispatch(initialAC(true))
+    authAPI.me().then((res) => {
+            console.log('meThunk', res)
+            dispatch(setUserAC(res.data))
+            dispatch(setIsLoggedInAC(true))
+        }
+    )
+        .catch(e => {
+            dispatch(setAppErrorAC(e.response.data.error))
+        })
+        .finally(() => {
+            dispatch(initialAC(false))
+        })
+
+}
+
 
 export const createUser = (data: RegisterType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+
     authAPI.registration(data)
         .then(response => {
             dispatch(setRegisterStatus(true))
         })
         .catch(response => {
             dispatch(setErrorStatus(response.response.data.error))
+            dispatch(setAppErrorAC(response.response.data.error))
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 
 export const createNewPassword = (data: UpdatePasswordType): AppThunk => (dispatch) => {
 
     let {email} = data
-
+    dispatch(setAppStatusAC('loading'))
     authAPI.update(data)
         .then(response => {
             dispatch(setRequestNewPassword(true, email))
         })
         .catch(response => {
-            console.log(response)
+            dispatch(setAppErrorAC(response.response.data.error))
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 
 export const setNewPassTC = (password: string, resetPasswordToken: string): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     authAPI.setNewPass({password, resetPasswordToken})
         .then(res => {
             dispatch(setChangePassStatusAC(true))
         })
-        .catch(res => {console.log(res)})
+        .catch(error => {
+            dispatch(setAppErrorAC(error.response.data.error))
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC('succeeded'))
+        })
 }
 
-export const editNameThunkAC = (name: string ): AppThunk => (dispatch) => {
+export const editNameThunkAC = (name: string): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     authAPI.updateUserName(name)
         .then((res) => {
                 dispatch(setUserAC(res.data.updatedUser))
             }
-        ).catch((e) => {
-        console.log(e)
+        ).catch((error) => {
+        dispatch(setAppErrorAC(error.response.data.error))
     })
-
+        .finally(() => {
+            dispatch(setAppStatusAC('succeeded'))
+        })
 
 }
 

@@ -11,6 +11,8 @@ import {Navlinks} from "../features/navlink/Navlinks";
 import {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../common/hooks/hooks";
 import {meThunkAC} from "../features/auth/auth-reducer";
+import {ErrorSnackbar} from "../common/UniversalComponents/ErrorSnackbar/ErrorSnackbar";
+import {Header} from "../features/header/Header";
 
 function App() {
 
@@ -20,9 +22,9 @@ function App() {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
     useEffect(() =>{
-        if(!isLoggedIn){
-            dispatch(meThunkAC())
-        }
+
+        !isLoggedIn && dispatch(meThunkAC())
+
     },[])
 
     if(initial) {
@@ -30,7 +32,9 @@ function App() {
     }
 
     return (
-        <div className="App">
+        <div className="App" style={{position: 'relative', height: '100vh'}}>
+            <Header/>
+            <ErrorSnackbar/>
             <Navlinks/>
             <Routes>
                 <Route path={'/'} element={<Navigate to={'/login'}/>}/>
@@ -39,7 +43,8 @@ function App() {
                 <Route path={'forgot'} element={<ForgotPassword/>}/>
                 <Route path={'set-new-password/:token'} element={<NewPassword/>}/>
                 <Route path={'profile'} element={<Profile/>}/>
-                <Route path={'/*'} element={<Error404/>}/>
+                <Route path={'/*'} element={<Navigate to={'/404'}/>}/>
+                <Route path={'/404'} element={<Error404/>}/>
             </Routes>
         </div>
     );

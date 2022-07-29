@@ -46,3 +46,23 @@ export const logoutThunkAC = (): AppThunk => (dispatch) => {
 }
 
 
+// export const editAvatarAC = (data: UpdateUserType) => {
+//     return {
+//         type: 'CHANGE_AVATAR_MODE',
+//         data
+//     } as const
+// }
+
+
+
+
+// export const editAvatarThunkAC = (data: UpdateUserType): AppThunk => (dispatch) => {
+//     authAPI.updateUser(data).then((res) => {
+//
+//             dispatch(setUserAC(res.data))
+//         }
+//     )
+//
+//
+// }
+

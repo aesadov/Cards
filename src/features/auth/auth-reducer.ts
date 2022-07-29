@@ -3,6 +3,7 @@ import {AppThunk} from '../../app/store';
 import {initialAC} from "../../app/app-reducer";
 
 
+
 const SET_REGISTER_STATUS = 'AUTH/SET_REGISTER_STATUS'
 const SET_ERROR_STATUS = 'AUTH/SET_ERROR_STATUS'
 const REQUEST_FOR_NEW_PASSWORD = 'AUTH/REQUEST_FOR_NEW_PASSWORD'

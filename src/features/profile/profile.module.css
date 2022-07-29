@@ -10,7 +10,7 @@
     background-color: aqua;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-around;
     padding-left: 50px;
 }
 

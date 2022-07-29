@@ -4,7 +4,7 @@ import s from './Navlihks.module.css'
 
 export const Navlinks = () => {
     return (
-        <nav >
+        <nav style={{position: 'absolute', bottom: '0', left: '20px'}}>
             <ul className={s.body}>
                 <li><NavLink to='/login' className={navData => navData.isActive ? s.active : s.item}>
                     Login

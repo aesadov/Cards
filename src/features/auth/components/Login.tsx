@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@mui/material';
 import { useFormik } from 'formik';
-import { Navigate } from 'react-router-dom';
+import {Link, Navigate, NavLink} from 'react-router-dom';
 import { loginTC } from '../auth-reducer';
 import {useAppDispatch, useAppSelector} from '../../../common/hooks/hooks';
 
@@ -14,6 +14,7 @@ export const Login = () => {
     }
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const status = useAppSelector(state => state.app.status)
 
     const formik = useFormik({
         initialValues: {
@@ -75,7 +76,10 @@ export const Login = () => {
                             label='Remember me'
                             control={<Checkbox {...formik.getFieldProps('rememberMe')}/>}
                         />
-                        <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+                        <Link to={'/forgot'}><h2 style={{display:'flex', justifyContent:'end', marginBottom: '15px', opacity:'.7'}}>Forgot Password</h2></Link>
+                        <Button disabled={status === 'loading'} type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+                        <h2 style={{padding: '15px 0', opacity:'.7'}}>Do you have an account?</h2>
+                        <Link to={'/register'} style={{color: 'blue'}}>Sign In</Link>
                     </FormGroup>
                 </FormControl>
             </form>

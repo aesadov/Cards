@@ -79,7 +79,7 @@ export const Login = () => {
                         <Link to={'/forgot'}><h2 style={{display:'flex', justifyContent:'end', marginBottom: '15px', opacity:'.7'}}>Forgot Password</h2></Link>
                         <Button disabled={status === 'loading'} type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
                         <h2 style={{padding: '15px 0', opacity:'.7'}}>Do you have an account?</h2>
-                        <Link to={'/register'} style={{color: 'blue'}}>Sign In</Link>
+                        <Link to={'/registration'} style={{color: 'blue'}}>Sign In</Link>
                     </FormGroup>
                 </FormControl>
             </form>

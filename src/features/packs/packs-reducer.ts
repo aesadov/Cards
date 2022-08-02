@@ -34,15 +34,7 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
                 minCardsCount: action.data.minCardsCount,
                 maxCardsCount: action.data.maxCardsCount,
                 cardPacksTotalCount: action.data.cardPacksTotalCount,
-                // params: {...state.params, min: action.data.minCardsCount, max: action.data.maxCardsCount}
             }
-        // case 'packs/CHANGE_MIN_MAX_PACKS':
-        //     return {
-        //         ...state,
-        //         minCardsCount: action.data[0],
-        //         maxCardsCount: action.data[1],
-        //         params: {...state.params, min: action.data[0], max: action.data[1]}
-        //     }
         case 'packs/CHANGE_PARAMS':
             return {
                 ...state,

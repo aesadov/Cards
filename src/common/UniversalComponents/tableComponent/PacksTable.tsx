@@ -6,47 +6,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
-export type CardPackType = {
-    cardsCount: number
-    created: string
-    deckCover: null
-    grade: number
-    more_id: string
-    name: string
-    path: string
-    private: boolean
-    rating: number
-    shots: number
-    type: string
-    updated: string
-    user_id: string
-    user_name: string
-    __v: number
-    _id: string
-}
+import {CardPackType} from "../../../features/packs/packsApi";
 
 type PacksTablePropsType = {
     data: CardPackType[]
+    userId: string
 }
 
-/*function createData(
-    name: string,
-    cardsCount: number,
-    lastUpdated: string,
-    createdBy: string,
-    actions: boolean
-) {
-    return { name, cardsCount, lastUpdated, createdBy, actions };
-}
-
-const rows = [
-    createData('English words', 159, '01.02.2022', 'Ivan', true),
-    createData('Java Script', 237, '11.03.2022', 'Stepan', false),
-    createData('React', 237, '11.03.2022', 'Victor', false),
-];*/
-
-export const PacksTable = (props: PacksTablePropsType) => {
+export const PacksTable = ({userId, data}: PacksTablePropsType) => {
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -60,9 +27,9 @@ export const PacksTable = (props: PacksTablePropsType) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.data.map((row) => (
+                    {data && data.map((row) => (
                         <TableRow
-                            key={row.name}
+                            key={row._id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
@@ -72,7 +39,7 @@ export const PacksTable = (props: PacksTablePropsType) => {
                             <TableCell align="right">{row.updated}</TableCell>
                             <TableCell align="right">{row.created}</TableCell>
                             <TableCell align="right">
-                                {true && <span><button>dell</button><span> </span><button>edit </button><span> </span></span>} //if row.user_id === profile.id
+                                {userId === row.user_id && <span><button>dell</button><span> </span><button>edit </button><span> </span></span>}
                                 <button>learn</button>
                             </TableCell>
                         </TableRow>

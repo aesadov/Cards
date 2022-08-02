@@ -1,42 +1,49 @@
 import {instance} from "../auth/authAPI";
+import {AxiosResponse} from "axios";
 
-export type GetCardsType = {
+export const packsAPI = {
+    getCards: (params: CardParamsType) => {
 
-    packName?: string
-    min?: number
-    max?: number
-    sortPacks?: string
-    page?: number
-    pageCount?: number
-    user_id?: string
+        return instance.get<ResponseType>(`cards/pack`, {params: {...params}})
+    }
 }
 
-export type CardsPackType = {
-
-    id: string
-    user_id: string
-    name: string
+export type CardPackType = {
     cardsCount: number
     created: string
+    deckCover: null
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
     updated: string
-
+    user_id: string
+    user_name: string
+    __v: number
+    _id: string
 }
 
-export type GetCardsPackResponseType = {
-    cardPacks: Array<CardsPackType>
+export type ResponseType = {
+    cardPacks: CardPackType[]
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
     page: number
     pageCount: number
+    token: string
+    tokenDeathTime: number
 }
 
-
-
-export const packsAPI = {
-    getPacks: () => {
-        return instance
-            .get<GetCardsPackResponseType>('/cards/pack', )
-            // .then((res) => res.data)
-    }
-}
+export type CardParamsType = {
+    packName?: string;
+    min?: number;
+    max?: number;
+    sortPacks?: any;
+    page?: number;
+    pageCount?: number;
+    user_id?: string;
+};

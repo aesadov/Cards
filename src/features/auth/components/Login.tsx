@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import {Link, Navigate, NavLink} from 'react-router-dom';
 import { loginTC } from '../auth-reducer';
 import {useAppDispatch, useAppSelector} from '../../../common/hooks/hooks';
+import {RangeTable} from "../../../common/UniversalComponents/tableComponent/RangeTable";
 
 export const Login = () => {
 

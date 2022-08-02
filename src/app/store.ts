@@ -3,11 +3,13 @@ import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {authReducer} from "../features/auth/auth-reducer";
 import {profileReducer} from "../features/profile/profile-reducer";
 import {appReducer} from "./app-reducer";
+import {packsReducer} from "../features/packs/packs-reducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
     profile: profileReducer,
-    app: appReducer
+    app: appReducer,
+    packs: packsReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));

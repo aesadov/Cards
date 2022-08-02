@@ -7,12 +7,17 @@ type PropsType = {
     max: number
     width: number
     minDistance: number
+    newMin: undefined | number
+    newMax: undefined | number
     callback?: (value: number[]) => void
 }
 
-export const RangeTable = ({minDistance, min, max, callback, width}: PropsType) => {
+export const RangeTable = ({minDistance, min, max, callback, width, newMin, newMax}: PropsType) => {
 
-    const [value, setValue] = React.useState<number[]>([min, max]);
+    let minInitial = newMin ? newMin : min
+    let maxInitial = newMax ? newMax : max
+
+    const [value, setValue] = React.useState<number[]>([minInitial, maxInitial]);
 
     const handleChange = (
         event: Event,
@@ -32,15 +37,15 @@ export const RangeTable = ({minDistance, min, max, callback, width}: PropsType) 
     };
 
     return (
-        <div style={{maxWidth:'350px'}}>
+        <div style={{maxWidth: '350px'}}>
             <h2 style={{margin: '30px 0'}}>Number of cards</h2>
             <Box sx={{width}}>
                 <Slider
                     value={value}
                     onChange={handleChange}
                     valueLabelDisplay="auto"
-                    max={max}
                     min={min}
+                    max={max}
                     disableSwap
                 />
             </Box>

@@ -13,6 +13,7 @@ import {useAppDispatch, useAppSelector} from "../common/hooks/hooks";
 import {meThunkAC} from "../features/auth/auth-reducer";
 import {ErrorSnackbar} from "../common/UniversalComponents/ErrorSnackbar/ErrorSnackbar";
 import {Header} from "../features/header/Header";
+import {PacksTable} from '../common/UniversalComponents/tableComponent/PacksTable';
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
                 <Route path={'profile'} element={<Profile/>}/>
                 <Route path={'/*'} element={<Navigate to={'/404'}/>}/>
                 <Route path={'/404'} element={<Error404/>}/>
+                <Route path={'/table'} element={<PacksTable data={[]}/>}/> // нужно передать Packs
             </Routes>
         </div>
     );

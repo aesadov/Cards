@@ -13,6 +13,7 @@ import {useAppDispatch, useAppSelector} from "../common/hooks/hooks";
 import {meThunkAC} from "../features/auth/auth-reducer";
 import {ErrorSnackbar} from "../common/UniversalComponents/ErrorSnackbar/ErrorSnackbar";
 import {Header} from "../features/header/Header";
+import {Packs} from "../features/packs/Packs";
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
                 <Route path={'forgot'} element={<ForgotPassword/>}/>
                 <Route path={'set-new-password/:token'} element={<NewPassword/>}/>
                 <Route path={'profile'} element={<Profile/>}/>
+                <Route path={'packs-list'} element={<Packs/>}/>
                 <Route path={'/*'} element={<Navigate to={'/404'}/>}/>
                 <Route path={'/404'} element={<Error404/>}/>
             </Routes>

@@ -16,6 +16,18 @@ export const Header = () => {
                     {
                         isLoggedIn
                             ?
+                            <Link to={'/packs-list' }>
+                                <span style={{paddingRight: '50px'}}>Packs list</span>
+                            </Link>
+                            :
+                            <Link to={'/login'}>
+                                <span style={{display:'inline-block', border:'1px solid', padding: '5px 10px'}}>Sign in</span>
+                            </Link>
+                    }
+
+                    {
+                        isLoggedIn
+                            ?
                             <Link to={'/profile'}>
                                 <span>Profile</span>
                             </Link>
@@ -24,6 +36,8 @@ export const Header = () => {
                                 <span style={{display:'inline-block', border:'1px solid', padding: '5px 10px'}}>Sign in</span>
                             </Link>
                     }
+
+
                 </div>
             </div>
         </div>

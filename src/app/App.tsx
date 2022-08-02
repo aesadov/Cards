@@ -17,9 +17,7 @@ function App() {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
     useEffect(() =>{
-
         !isLoggedIn && dispatch(meThunkAC())
-
     },[])
 
     if(initial) {

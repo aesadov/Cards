@@ -16,17 +16,16 @@ export const Profile = React.memo(() => {
 
     const dispatch = useAppDispatch();
 
-
     const logoutHandler = useCallback(() => {
         dispatch(logoutThunkAC())
     },[dispatch])
 
-    if (!isLoggedIn) {
-        return <Navigate to={'/login'}/>
-    }
-
     const changeNameHandler = (name: string) => {
         dispatch(editNameThunkAC(name))
+    }
+
+    if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>
     }
 
     return (

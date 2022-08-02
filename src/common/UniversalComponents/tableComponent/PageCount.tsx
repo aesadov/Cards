@@ -4,23 +4,35 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect'
 
-export const PageCount = () => {
+type PageCountPropsType = {
+    callback: (value: number) => void
+    pageCount: number
+}
+
+export const PageCount = ({callback, pageCount}: PageCountPropsType) => {
+
+    const onChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        callback(+event.target.value)
+    }
+
     return (
-        <Box sx={{ minWidth: 120 }}>
+        <Box sx={{ maxWidth: 55 }}>
             <FormControl fullWidth>
                 <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                    Age
+                    Size
                 </InputLabel>
                 <NativeSelect
-                    defaultValue={30}
+                    onChange={onChangeHandler}
+                    defaultValue={pageCount}
                     inputProps={{
                         name: 'age',
                         id: 'uncontrolled-native',
                     }}
                 >
-                    <option value={10}>Ten</option>
-                    <option value={20}>Twenty</option>
-                    <option value={30}>Thirty</option>
+                    <option value={4}>4</option>
+                    <option value={8}>8</option>
+                    <option value={16}>16</option>
+                    <option value={32}>32</option>
                 </NativeSelect>
             </FormControl>
         </Box>

@@ -63,4 +63,43 @@ export const setPacks = (): AppThunk => async (dispatch, getState: () => AppRoot
     }
 }
 
+export const createPack = (): AppThunk => async (dispatch) => {
+
+    dispatch(setAppStatusAC('loading'))
+    try {
+        await packsAPI.createPack({name: 'Test Add Pack'})
+        dispatch(setPacks())
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e){
+        console.log(e)
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
+
+export const removePack = (id: string): AppThunk => async (dispatch) => {
+
+    dispatch(setAppStatusAC('loading'))
+    try {
+        await packsAPI.deletePack(id)
+        dispatch(setPacks())
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e){
+        console.log(e)
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
+
+export const updateUserPack = (id: string): AppThunk => async (dispatch) => {
+
+    dispatch(setAppStatusAC('loading'))
+    try {
+        await packsAPI.updatePack({_id: id, name: 'Change name Pack'})
+        dispatch(setPacks())
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e){
+        console.log(e)
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
+
 type AppActionsType = ReturnType<typeof initialCards> | ReturnType<typeof changeMinMaxCards> | ReturnType<typeof changeParamsCards>

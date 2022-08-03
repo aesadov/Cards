@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {RangeTable} from "../../common/UniversalComponents/tableComponent/RangeTable";
 import {ShowPacksButton} from "../../common/UniversalComponents/tableComponent/ShowPacksButton";
 import {useAppDispatch, useAppSelector} from "../../common/hooks/hooks";
-import {changeParamsCards, setPacks} from "./packs-reducer";
+import {changeParamsCards, createPack, removePack, setPacks, updateUserPack} from "./packs-reducer";
 import {useDebounce} from "../../common/hooks/useDebounce";
 import {PacksTable} from "../../common/UniversalComponents/tableComponent/PacksTable";
 import {InputTable} from "../../common/UniversalComponents/tableComponent/InputTable";
@@ -34,7 +34,9 @@ export const Packs = () => {
 
     const minMaxHandler = (value: number[]) => {dispatch(changeParamsCards({min: value[0], max: value[1]}))}
     const showPacksButtonHandler = (user_id: undefined | string) => {dispatch(changeParamsCards({user_id}))}
-    const addPack = () => {}
+    const addPack = () => {dispatch(createPack())}
+    const deletePack = (id: string) => {dispatch(removePack(id))}
+    const updatePack = (id: string) => {dispatch(updateUserPack(id))}
     const filteredPacks = (params: CardParamsType) => {dispatch(changeParamsCards(params))}
     const changePageNumber = (page: number) => {dispatch(changeParamsCards({page}))}
     const changePageCount = (pageCount: number) => {dispatch(changeParamsCards({pageCount}))}
@@ -59,7 +61,7 @@ export const Packs = () => {
                 <InputTable callback={filteredPacks}/>
                 <Button name={'Add Pack'} callback={addPack}/>
             </div>
-            {packs && <PacksTable userId={userId} data={packs}/>}
+            {packs && <PacksTable callbackUpdate={updatePack} callback={deletePack} userId={userId} data={packs}/>}
             <div style={{marginTop: "35px", display: 'flex',gap: '40px'}}>
 
                 {packs && packs.length > 0

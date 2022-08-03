@@ -11,12 +11,22 @@ import {CardPackType} from "../../../features/packs/packsApi";
 type PacksTablePropsType = {
     data: CardPackType[]
     userId: string
+    callback: (id: string) => void
+    callbackUpdate: (id: string) => void
 }
 
-export const PacksTable = ({userId, data}: PacksTablePropsType) => {
+export const PacksTable = ({userId, data, callback, callbackUpdate}: PacksTablePropsType) => {
+
+    const deletePack = (id: string) => {
+        callback(id)
+    }
+    const updatePack = (id: string) => {
+        callbackUpdate(id)
+    }
+
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell>Pack Name {<button>sort</button>}</TableCell>
@@ -30,7 +40,7 @@ export const PacksTable = ({userId, data}: PacksTablePropsType) => {
                     {data && data.map((row) => (
                         <TableRow
                             key={row._id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
                         >
                             <TableCell component="th" scope="row">
                                 {row.name}
@@ -39,7 +49,9 @@ export const PacksTable = ({userId, data}: PacksTablePropsType) => {
                             <TableCell align="right">{row.updated}</TableCell>
                             <TableCell align="right">{row.created}</TableCell>
                             <TableCell align="right">
-                                {userId === row.user_id && <span><button>dell</button><span> </span><button>edit </button><span> </span></span>}
+                                {userId === row.user_id && <span><button
+                                    onClick={() => deletePack(row._id)}>dell</button><span> </span><button
+                                    onClick={() => updatePack(row._id)}>edit </button><span> </span></span>}
                                 <button>learn</button>
                             </TableCell>
                         </TableRow>

@@ -30,6 +30,10 @@ export const Navlinks = () => {
                     Packs
                 </NavLink>
                 </li>
+                <li><NavLink to='/cards' className={navData => navData.isActive ? s.active : s.item}>
+                    Cards
+                </NavLink>
+                </li>
             </ul>
 
         </nav>

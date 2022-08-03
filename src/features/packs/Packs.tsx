@@ -2,15 +2,26 @@ import React, {useEffect} from 'react';
 import {RangeTable} from "../../common/UniversalComponents/tableComponent/RangeTable";
 import {ShowPacksButton} from "../../common/UniversalComponents/tableComponent/ShowPacksButton";
 import {useAppDispatch, useAppSelector} from "../../common/hooks/hooks";
-import {changeParamsCards, createPack, removePack, setPacks, updateUserPack} from "./packs-reducer";
+import {changeParamsPacks, createPack, removePack, setPacks, updateUserPack} from "./packs-reducer";
 import {useDebounce} from "../../common/hooks/useDebounce";
 import {PacksTable} from "../../common/UniversalComponents/tableComponent/PacksTable";
 import {InputTable} from "../../common/UniversalComponents/tableComponent/InputTable";
 import {Button} from '../../common/UniversalComponents/Button';
-import {CardParamsType} from "./packsApi";
+import {PackParamsType} from "./packsApi";
 import {PaginationComponent} from "../../common/UniversalComponents/tableComponent/Pagination";
 import {PageCount} from "../../common/UniversalComponents/tableComponent/PageCount";
 import {Navigate} from "react-router-dom";
+import {changeParamsCards} from "../cards/cards-reducer";
+import {TableWrapper} from "../../common/UniversalComponents/tableComponent/TableWrapper";
+import {HeaderTable} from "../../common/UniversalComponents/tableComponent/HeaderTable";
+
+
+const nameColumn = [
+    {name: 'Pack Name', isDone: true},
+    {name: 'Cards', isDone: true},
+    {name: 'Last Updated', isDone: true},
+    {name: 'Created by', isDone: true},
+]
 
 
 export const Packs = () => {
@@ -32,14 +43,33 @@ export const Packs = () => {
         dispatch(setPacks())
     }, [useDebounce(params, 1000)])//  в зависимости идут фильтрации, пагинации, и т.д.
 
-    const minMaxHandler = (value: number[]) => {dispatch(changeParamsCards({min: value[0], max: value[1]}))}
-    const showPacksButtonHandler = (user_id: undefined | string) => {dispatch(changeParamsCards({user_id}))}
-    const addPack = () => {dispatch(createPack())}
-    const deletePack = (id: string) => {dispatch(removePack(id))}
-    const updatePack = (id: string) => {dispatch(updateUserPack(id))}
-    const filteredPacks = (params: CardParamsType) => {dispatch(changeParamsCards(params))}
-    const changePageNumber = (page: number) => {dispatch(changeParamsCards({page}))}
-    const changePageCount = (pageCount: number) => {dispatch(changeParamsCards({pageCount}))}
+    const minMaxHandler = (value: number[]) => {
+        dispatch(changeParamsPacks({min: value[0], max: value[1]}))
+    }
+    const showPacksButtonHandler = (user_id: undefined | string) => {
+        dispatch(changeParamsPacks({user_id}))
+    }
+    const addPack = () => {
+        dispatch(createPack())
+    }
+    const deletePack = (id: string) => {
+        dispatch(removePack(id))
+    }
+    const updatePack = (id: string) => {
+        dispatch(updateUserPack(id))
+    }
+    const filteredPacks = (params: PackParamsType) => {
+        dispatch(changeParamsPacks(params))
+    }
+    const changePageNumber = (page: number) => {
+        dispatch(changeParamsPacks({page}))
+    }
+    const changePageCount = (pageCount: number) => {
+        dispatch(changeParamsPacks({pageCount}))
+    }
+    const redirectPageCards = (id: string) => {
+        dispatch(changeParamsCards({cardsPack_id: id}))
+    }
 
     const page = params.page ? params.page : defaultPage
     const pageTotalCount = cardPacksTotalCount ? Math.ceil(cardPacksTotalCount / pageCount) : 10
@@ -48,28 +78,45 @@ export const Packs = () => {
     if (status === 'loading') {
         return <h1 style={{textAlign: 'center', marginTop: '150px'}}>Loading...</h1>
     }
-    if(!isLoggedIn){
+    if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
 
     return (
-        <div style={{maxWidth: '1250px', padding: '50px 20px', display: 'flex', flexDirection: 'column', margin: '0 auto'}}>
+        <div style={{
+            maxWidth: '1250px',
+            padding: '50px 20px',
+            display: 'flex',
+            flexDirection: 'column',
+            margin: '0 auto'
+        }}>
             <div style={{display: 'flex', gap: '40px', marginBottom: '25px', alignItems: "center"}}>
                 <ShowPacksButton paramsId={params.user_id} callback={showPacksButtonHandler} userId={userId}/>
-                <RangeTable newMin={params.min} newMax={params.max} min={min} max={max} width={250} minDistance={5}
-                            callback={minMaxHandler}/>
+                <RangeTable
+                    newMin={params.min}
+                    newMax={params.max}
+                    min={min}
+                    max={max}
+                    width={250}
+                    minDistance={5}
+                    callback={minMaxHandler}
+                />
                 <InputTable callback={filteredPacks}/>
                 <Button name={'Add Pack'} callback={addPack}/>
             </div>
-            {packs && <PacksTable callbackUpdate={updatePack} callback={deletePack} userId={userId} data={packs}/>}
-            <div style={{marginTop: "35px", display: 'flex',gap: '40px'}}>
-
-                {packs && packs.length > 0
-                    ? <PaginationComponent pageCount={pageTotalCount} page={page} callback={changePageNumber}/>
-                    : <h2>ups</h2>
-                }
+            <TableWrapper>
+                <HeaderTable data={nameColumn}/>
+                <PacksTable
+                    callbackPage={redirectPageCards}
+                    callbackUpdate={updatePack}
+                    callback={deletePack}
+                    userId={userId}
+                    data={packs}
+                />
+                <PaginationComponent pageCount={pageTotalCount} page={page} callback={changePageNumber}/>
                 <PageCount pageCount={pageSize} callback={changePageCount}/>
-            </div>
+            </TableWrapper>
+            {packs.length === 0 && <h2>ups</h2>}
         </div>
     );
 };

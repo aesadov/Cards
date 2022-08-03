@@ -2,7 +2,7 @@ import {instance} from "../auth/authAPI";
 import {AxiosResponse} from "axios";
 
 export const packsAPI = {
-    getCards: (params: CardParamsType) => {
+    getCards: (params: PackParamsType) => {
 
         return instance.get<ResponseType>(`cards/pack`, {params: params})
     },
@@ -59,7 +59,7 @@ export type ResponseType = {
     tokenDeathTime: number
 }
 
-export type CardParamsType = {
+export type PackParamsType = {
     packName?: string;
     min?: number;
     max?: number;

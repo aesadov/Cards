@@ -1,9 +1,9 @@
-import {CardPackType, CardParamsType, packsAPI, ResponseType} from "./packsApi";
+import {CardPackType, PackParamsType, packsAPI, ResponseType} from "./packsApi";
 import {AppRootStateType, AppThunk} from "../../app/store";
 import {setAppStatusAC} from "../../app/app-reducer";
 
 const initialState = {
-    cardPacks: null as null | CardPackType[],
+    cardPacks: [] as CardPackType[],
     cardPacksTotalCount: null as null | number,
     maxCardsCount: 0,
     minCardsCount: 0,
@@ -19,7 +19,7 @@ const initialState = {
         page: undefined,
         pageCount: undefined,
         user_id: undefined,
-    } as CardParamsType
+    } as PackParamsType
 }
 
 
@@ -47,7 +47,7 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
 
 export const initialCards = (data: ResponseType) => ({type: 'packs/INITIAL_PACKS', data}) as const
 export const changeMinMaxCards = (data: number[]) => ({type: 'packs/CHANGE_MIN_MAX_PACKS', data}) as const
-export const changeParamsCards = (params: CardParamsType) => ({type: 'packs/CHANGE_PARAMS', params}) as const
+export const changeParamsPacks = (params: PackParamsType) => ({type: 'packs/CHANGE_PARAMS', params}) as const
 
 
 export const setPacks = (): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
@@ -59,6 +59,7 @@ export const setPacks = (): AppThunk => async (dispatch, getState: () => AppRoot
         dispatch(initialCards(res.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e){
+
         console.log(e)
     }
 }
@@ -102,4 +103,4 @@ export const updateUserPack = (id: string): AppThunk => async (dispatch) => {
     }
 }
 
-type AppActionsType = ReturnType<typeof initialCards> | ReturnType<typeof changeMinMaxCards> | ReturnType<typeof changeParamsCards>
+type AppActionsType = ReturnType<typeof initialCards> | ReturnType<typeof changeMinMaxCards> | ReturnType<typeof changeParamsPacks>

@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useState} from 'react';
 import {TextField} from "@mui/material";
-import {CardParamsType} from "../../../features/packs/packsApi";
+import {PackParamsType} from "../../../features/packs/packsApi";
 
 type InputPropsType = {
-    callback: (data: CardParamsType) => void
+    callback: (data: PackParamsType) => void
 }
 
 export const InputTable = ({callback}: InputPropsType) => {

@@ -1,0 +1,14 @@
+.bodyPage{
+    max-width: 1250px;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+.bodyTable{
+    margin-top: 30px;
+}
+.searchBnt{
+    display: flex;
+    gap: 20px;
+}

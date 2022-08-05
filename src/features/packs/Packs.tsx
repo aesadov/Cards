@@ -14,13 +14,15 @@ import {Navigate} from "react-router-dom";
 import {changeParamsCards} from "../cards/cards-reducer";
 import {TableWrapper} from "../../common/UniversalComponents/tableComponent/TableWrapper";
 import {HeaderTable} from "../../common/UniversalComponents/tableComponent/HeaderTable";
+import {NameCellType} from "../../common/TypeForSort";
 
 
-const nameColumn = [
-    {name: 'Pack Name', isDone: true},
-    {name: 'Cards', isDone: true},
-    {name: 'Last Updated', isDone: true},
-    {name: 'Created by', isDone: true},
+const nameColumn: Array<{name: string, isDone: boolean, sortNane: NameCellType}> = [
+    {name: 'Pack Name', isDone: true, sortNane: 'packName'},
+    {name: 'Cards', isDone: true, sortNane: 'cards'},
+    {name: 'Last Updated', isDone: true, sortNane: 'update'},
+    {name: 'Created by', isDone: true, sortNane: 'created'},
+    {name: 'Action', isDone: false, sortNane: 'action'},
 ]
 
 

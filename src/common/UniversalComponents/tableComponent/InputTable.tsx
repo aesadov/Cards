@@ -12,7 +12,6 @@ export const InputTable = ({callback}: InputPropsType) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setValue(e.currentTarget.value)
-        console.log(e.currentTarget.value)
         callback({packName: value})
     }
 

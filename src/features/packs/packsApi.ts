@@ -1,5 +1,5 @@
 import {instance} from "../auth/authAPI";
-import {AxiosResponse} from "axios";
+import {sortPacks} from "../../common/TypeForSort";
 
 export const packsAPI = {
     getCards: (params: PackParamsType) => {
@@ -63,7 +63,7 @@ export type PackParamsType = {
     packName?: string;
     min?: number;
     max?: number;
-    sortPacks?: any;
+    sortPacks?: sortPacks;
     page?: number;
     pageCount?: number;
     user_id?: string;

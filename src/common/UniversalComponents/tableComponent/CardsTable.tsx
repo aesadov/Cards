@@ -3,8 +3,6 @@ import React from 'react';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import {CardPackType} from "../../../features/packs/packsApi";
-import {Link} from 'react-router-dom';
 import {CardType} from "../../../features/cards/cardsAPI";
 import {useAppDispatch} from "../../hooks/hooks";
 import {changeCard, removeCard} from "../../../features/cards/cards-reducer";
@@ -26,9 +24,6 @@ export const CardsTable = ({userId, data, callback, callbackUpdate, callbackPage
     }
     const updateCard = (id: string) => {
         dispatch(changeCard(id))
-    }
-    const cardsPageHandler = (id: string) => {
-        callbackPage && callbackPage(id)
     }
 
     return (

@@ -28,7 +28,6 @@ const initialState = {
 type InitialStateType = typeof initialState
 
 export const cardsReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
-    console.log(state)
     switch (action.type) {
         case "cards/SET_CARDS":
             return {...state, ...action.data}
@@ -48,7 +47,6 @@ export const setCards = (): AppThunk => async (dispatch, getState: () => AppRoot
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await cardsAPI.getCards(params)
-        console.log(res.data)
         dispatch(setResponseCards(res.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {

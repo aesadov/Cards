@@ -1,6 +1,7 @@
 import {CardPackType, PackParamsType, packsAPI, ResponseType} from "./packsApi";
 import {AppRootStateType, AppThunk} from "../../app/store";
 import {setAppStatusAC} from "../../app/app-reducer";
+import {NameCellType, SortType} from "../../common/TypeForSort";
 
 const initialState = {
     cardPacks: [] as CardPackType[],
@@ -11,6 +12,8 @@ const initialState = {
     pageCount: 5,
     token: null as null | number,
     tokenDeathTime: null as null | number,
+    statusSort: '' as NameCellType,
+    regulator: 'decr' as SortType,
     params: {
         packName: undefined,
         min: undefined,
@@ -40,6 +43,12 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
                 ...state,
                 params: {...state.params, ...action.params}
             }
+        case 'packs/CHANGE_STATUS_SORT':
+            return {
+                ...state,
+                statusSort: action.statusSort,
+                regulator: action.regulator
+            }
         default:
             return state
     }
@@ -48,6 +57,7 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
 export const initialCards = (data: ResponseType) => ({type: 'packs/INITIAL_PACKS', data}) as const
 export const changeMinMaxCards = (data: number[]) => ({type: 'packs/CHANGE_MIN_MAX_PACKS', data}) as const
 export const changeParamsPacks = (params: PackParamsType) => ({type: 'packs/CHANGE_PARAMS', params}) as const
+export const changeStatusSortPacks = (statusSort: NameCellType, regulator: SortType) => ({type: 'packs/CHANGE_STATUS_SORT', statusSort, regulator}) as const
 
 
 export const setPacks = (): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
@@ -103,4 +113,8 @@ export const updateUserPack = (id: string): AppThunk => async (dispatch) => {
     }
 }
 
-type AppActionsType = ReturnType<typeof initialCards> | ReturnType<typeof changeMinMaxCards> | ReturnType<typeof changeParamsPacks>
+type AppActionsType =
+    ReturnType<typeof initialCards>
+    | ReturnType<typeof changeMinMaxCards>
+    | ReturnType<typeof changeParamsPacks>
+    | ReturnType<typeof changeStatusSortPacks>

@@ -89,7 +89,7 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
             dispatch(setLoginErrorStatusAC(response.response.data.error))
             dispatch(setAppErrorAC(response.response.data.error))
         })
-        .finally(()=> {
+        .finally(() => {
             dispatch(setAppStatusAC('succeeded'))
         })
 }
@@ -98,7 +98,6 @@ export const meThunkAC = (): AppThunk => (dispatch) => {
 
     dispatch(initialAC(true))
     authAPI.me().then((res) => {
-            console.log('meThunk', res)
             dispatch(setUserAC(res.data))
             dispatch(setIsLoggedInAC(true))
         }
@@ -163,9 +162,8 @@ export const editNameThunkAC = (name: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.updateUserName(name)
         .then((res) => {
-                dispatch(setUserAC(res.data.updatedUser))
-            }
-        ).catch((error) => {
+            dispatch(setUserAC(res.data.updatedUser))
+        }).catch((error) => {
         dispatch(setAppErrorAC(error.response.data.error))
     })
         .finally(() => {

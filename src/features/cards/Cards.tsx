@@ -10,12 +10,14 @@ import {Button} from "../../common/UniversalComponents/Button";
 import {useDebounce} from "../../common/hooks/useDebounce";
 import {PaginationComponent} from "../../common/UniversalComponents/tableComponent/Pagination";
 import {PageCount} from "../../common/UniversalComponents/tableComponent/PageCount";
+import {NameCellType} from "../../common/TypeForSort";
 
-const nameColumn = [
-    {name: 'Question', isDone: false},
-    {name: 'Answer', isDone: false},
-    {name: 'Last Updated', isDone: true},
-    {name: 'Grade', isDone: false},
+const nameColumn: Array<{name: string, isDone: boolean, sortNane: NameCellType}> = [
+    {name: 'Question', isDone: false, sortNane: 'update'},
+    {name: 'Answer', isDone: false, sortNane: 'update'},
+    {name: 'Last Updated', isDone: true, sortNane: 'update'},
+    {name: 'Grade', isDone: false, sortNane: 'update'},
+    {name: 'Action', isDone: false, sortNane: 'update'},
 ]
 
 export const Cards = () => {
@@ -24,6 +26,7 @@ export const Cards = () => {
     const cards = useAppSelector(state => state.cards.cards)
     const userId = useAppSelector(state => state.auth.user._id)
     const packId = useAppSelector(state => state.cards.params.cardsPack_id)
+    const packUserId = useAppSelector(state => state.cards.packUserId)
     const params = useAppSelector(state => state.cards.params)
     const page = useAppSelector(state => state.cards.page)
     const pageCount = useAppSelector(state => state.cards.pageCount)
@@ -36,31 +39,35 @@ export const Cards = () => {
     }, [useDebounce(params, 1000)])
 
     const addCard = () => {
-      dispatch(addNewCard())
+        dispatch(addNewCard())
     }
 
-    const changePageNumber = (page:number) => {dispatch(changeParamsCards({page,cardsPack_id: packId }))}
-    const changePageCount = () => {}
-    const pageTotalCount = Math.ceil(cardsTotalCount/pageCount)
-    console.log(packId)
+    const changePageNumber = (page: number) => {
+        dispatch(changeParamsCards({page, cardsPack_id: packId}))
+    }
+    const changePageCount = () => {
+    }
+    const pageTotalCount = Math.ceil(cardsTotalCount / pageCount)
+
     if (status === 'loading') {
         return <h1 style={{textAlign: 'center', marginTop: '150px'}}>Loading...</h1>
     }
-    
+
     return (
         <div className={style.bodyPage}>
             <div className={style.searchBnt}>
                 <InputTable callback={() => {
                 }}/>
-                {userId === packId && <Button callback={addCard} name={'Add new card'}/>}
+                {userId === packUserId && <Button callback={addCard} name={'Add new card'}/>}
             </div>
-            <TableWrapper className={style.bodyTable}>
-                <HeaderTable data={nameColumn}/>
-                <CardsTable userId={userId} data={cards}/>
-                <PaginationComponent pageCount={pageTotalCount} page={page} callback={changePageNumber}/>
-                <PageCount pageCount={pageCount} callback={changePageCount}/>
-            </TableWrapper>
-            {cards.length === 0 && <h2>ups</h2>}
+            {cards.length !== 0
+                ? <TableWrapper className={style.bodyTable}>
+                    <HeaderTable packId={packId} userId={userId} data={nameColumn}/>
+                    <CardsTable userId={userId} data={cards}/>
+                    <PaginationComponent pageCount={pageTotalCount} page={page} callback={changePageNumber}/>
+                    <PageCount pageCount={pageCount} callback={changePageCount}/>
+                </TableWrapper>
+                : <h2>ups</h2>}
         </div>
     );
 };

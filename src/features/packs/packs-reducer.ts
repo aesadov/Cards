@@ -49,6 +49,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
                 statusSort: action.statusSort,
                 regulator: action.regulator
             }
+
+
         default:
             return state
     }

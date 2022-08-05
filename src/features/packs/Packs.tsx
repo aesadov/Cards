@@ -73,6 +73,8 @@ export const Packs = () => {
         dispatch(changeParamsCards({cardsPack_id: id}))
     }
 
+
+
     const page = params.page ? params.page : defaultPage
     const pageTotalCount = cardPacksTotalCount ? Math.ceil(cardPacksTotalCount / pageCount) : 10
     const pageSize = params.pageCount ? params.pageCount : pageCount

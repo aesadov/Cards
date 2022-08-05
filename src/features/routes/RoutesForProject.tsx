@@ -7,6 +7,7 @@ import {NewPassword} from "../auth/components/NewPassword";
 import {Profile} from "../profile/Profile";
 import {Error404} from "../../common/Error-404";
 import {Packs} from "../packs/Packs";
+import {Cards} from "../cards/Cards";
 
 export const RoutesForProject = () => {
     return (
@@ -18,6 +19,7 @@ export const RoutesForProject = () => {
             <Route path={'set-new-password/:token'} element={<NewPassword/>}/>
             <Route path={'profile'} element={<Profile/>}/>
             <Route path={'packs'} element={<Packs/>}/>
+            <Route path={'cards'} element={<Cards/>}/>
             <Route path={'/*'} element={<Navigate to={'/404'}/>}/>
             <Route path={'/404'} element={<Error404/>}/>
         </Routes>

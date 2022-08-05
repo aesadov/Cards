@@ -1,11 +1,32 @@
 import {instance} from "../auth/authAPI";
-import {AxiosResponse} from "axios";
+import {sortPacks} from "../../common/TypeForSort";
 
 export const packsAPI = {
-    getCards: (params: CardParamsType) => {
+    getCards: (params: PackParamsType) => {
 
-        return instance.get<ResponseType>(`cards/pack`, {params: {...params}})
+        return instance.get<ResponseType>(`cards/pack`, {params: params})
+    },
+    createPack: (cardsPack: PackCreateType) => {
+        return instance.post(`cards/pack`, {cardsPack})
+    },
+    deletePack: (id: string) => {
+        return instance.delete(`cards/pack?id=${id}`)
+    },
+    updatePack: (cardsPack: PackUpdateType) => {
+        return instance.put(`cards/pack`, {cardsPack})
     }
+}
+
+export type PackCreateType = {
+    name?: string
+    deckCover?: string
+    private?: boolean
+}
+export type PackUpdateType = {
+    _id: string
+    name?: string
+    deckCover?: string
+    private?: boolean
 }
 
 export type CardPackType = {
@@ -38,11 +59,11 @@ export type ResponseType = {
     tokenDeathTime: number
 }
 
-export type CardParamsType = {
+export type PackParamsType = {
     packName?: string;
     min?: number;
     max?: number;
-    sortPacks?: any;
+    sortPacks?: sortPacks;
     page?: number;
     pageCount?: number;
     user_id?: string;

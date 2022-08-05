@@ -1,78 +1,32 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import React from 'react';
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import {SortButton} from "../SortButton";
+import {NameCellType} from "../../TypeForSort";
 
-function createData(
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-) {
-    return { name, calories, fat, carbs, protein };
+type HeaderType = {
+    data: Array<{name: string, isDone: boolean, sortNane: NameCellType}>
+    packId?: string
+    userId?: string
 }
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+export const HeaderTable = (props: HeaderType) => {
 
-export function HeaderTable() {
+    const headerRow = props.data.map((a, i) => {
+        return (
+            <TableCell align={i !== 0 ? 'right' : 'left'}
+                       key={i}>
+                {a.name} {a.isDone && <span><SortButton nameHeaderCell={a.sortNane}/></span>}
+            </TableCell>
+        )
+    })
+
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead style={{backgroundColor: '#ECECF9'}}>
-                    <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="right">Cards</TableCell>
-                        <TableCell align="right">Last Updated</TableCell>
-                        <TableCell align="right">Created By</TableCell>
-                        <TableCell align="right">Actions</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <TableRow
-                            key={row.name}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <TableHead>
+            <TableRow>
+                {headerRow}
+            </TableRow>
+        </TableHead>
     );
-}
-
-
-
-// export const HeaderTable = () => {
-//     return (
-//         <div>
-            {/*<div className={style.container}>*/}
-            {/*    <h3 style={{paddingTop: '14px'}}>Name</h3>*/}
-            {/*    <h3 style={{paddingTop: '14px'}}>Cards</h3>*/}
-            {/*    <h3 style={{paddingTop: '14px'}}>Last Updated</h3>*/}
-            {/*    <h3 style={{paddingTop: '14px'}}>Created by</h3>*/}
-            {/*    <h3 style={{paddingTop: '14px'}}>Actions</h3>*/}
-            {/*</div>*/}
-
-//         </div>
-//     );
-// };
-//
+};

@@ -1,9 +1,10 @@
-import {CardPackType, CardParamsType, packsAPI, ResponseType} from "./packsApi";
+import {CardPackType, PackParamsType, packsAPI, ResponseType} from "./packsApi";
 import {AppRootStateType, AppThunk} from "../../app/store";
 import {setAppStatusAC} from "../../app/app-reducer";
+import {NameCellType, SortType} from "../../common/TypeForSort";
 
 const initialState = {
-    cardPacks: null as null | CardPackType[],
+    cardPacks: [] as CardPackType[],
     cardPacksTotalCount: null as null | number,
     maxCardsCount: 0,
     minCardsCount: 0,
@@ -11,6 +12,8 @@ const initialState = {
     pageCount: 5,
     token: null as null | number,
     tokenDeathTime: null as null | number,
+    statusSort: '' as NameCellType,
+    regulator: 'decr' as SortType,
     params: {
         packName: undefined,
         min: undefined,
@@ -19,7 +22,7 @@ const initialState = {
         page: undefined,
         pageCount: undefined,
         user_id: undefined,
-    } as CardParamsType
+    } as PackParamsType
 }
 
 
@@ -40,6 +43,12 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
                 ...state,
                 params: {...state.params, ...action.params}
             }
+        case 'packs/CHANGE_STATUS_SORT':
+            return {
+                ...state,
+                statusSort: action.statusSort,
+                regulator: action.regulator
+            }
         default:
             return state
     }
@@ -47,7 +56,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
 
 export const initialCards = (data: ResponseType) => ({type: 'packs/INITIAL_PACKS', data}) as const
 export const changeMinMaxCards = (data: number[]) => ({type: 'packs/CHANGE_MIN_MAX_PACKS', data}) as const
-export const changeParamsCards = (params: CardParamsType) => ({type: 'packs/CHANGE_PARAMS', params}) as const
+export const changeParamsPacks = (params: PackParamsType) => ({type: 'packs/CHANGE_PARAMS', params}) as const
+export const changeStatusSortPacks = (statusSort: NameCellType, regulator: SortType) => ({type: 'packs/CHANGE_STATUS_SORT', statusSort, regulator}) as const
 
 
 export const setPacks = (): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
@@ -59,8 +69,52 @@ export const setPacks = (): AppThunk => async (dispatch, getState: () => AppRoot
         dispatch(initialCards(res.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e){
+
         console.log(e)
     }
 }
 
-type AppActionsType = ReturnType<typeof initialCards> | ReturnType<typeof changeMinMaxCards> | ReturnType<typeof changeParamsCards>
+export const createPack = (): AppThunk => async (dispatch) => {
+
+    dispatch(setAppStatusAC('loading'))
+    try {
+        await packsAPI.createPack({name: 'Test Add Pack'})
+        dispatch(setPacks())
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e){
+        console.log(e)
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
+
+export const removePack = (id: string): AppThunk => async (dispatch) => {
+
+    dispatch(setAppStatusAC('loading'))
+    try {
+        await packsAPI.deletePack(id)
+        dispatch(setPacks())
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e){
+        console.log(e)
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
+
+export const updateUserPack = (id: string): AppThunk => async (dispatch) => {
+
+    dispatch(setAppStatusAC('loading'))
+    try {
+        await packsAPI.updatePack({_id: id, name: 'Change name Pack'})
+        dispatch(setPacks())
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e){
+        console.log(e)
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
+
+type AppActionsType =
+    ReturnType<typeof initialCards>
+    | ReturnType<typeof changeMinMaxCards>
+    | ReturnType<typeof changeParamsPacks>
+    | ReturnType<typeof changeStatusSortPacks>

@@ -3,11 +3,11 @@ import React from 'react';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import {CardPackType} from "../../../features/packs/packsApi";
 import {Link} from 'react-router-dom';
+import {PackType} from "../../../features/packs/packsApi";
 
 type PacksTablePropsType = {
-    data?: CardPackType[]
+    data?: PackType[]
     userId?: string
     callback?: (id: string) => void
     callbackUpdate?: (id: string) => void

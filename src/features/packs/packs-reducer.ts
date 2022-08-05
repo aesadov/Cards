@@ -1,10 +1,10 @@
-import {CardPackType, PackParamsType, packsAPI, ResponseType} from "./packsApi";
-import {AppRootStateType, AppThunk} from "../../app/store";
+import {AppThunk} from "../../app/store";
 import {setAppStatusAC} from "../../app/app-reducer";
 import {NameCellType, SortType} from "../../common/TypeForSort";
+import {PackParamsType, packsAPI, PackType, ResponsePacksType} from "./packsApi";
 
 const initialState = {
-    cardPacks: [] as CardPackType[],
+    cardPacks: [] as PackType[],
     cardPacksTotalCount: null as null | number,
     maxCardsCount: 0,
     minCardsCount: 0,
@@ -54,13 +54,13 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
     }
 }
 
-export const initialCards = (data: ResponseType) => ({type: 'packs/INITIAL_PACKS', data}) as const
+export const initialCards = (data: ResponsePacksType) => ({type: 'packs/INITIAL_PACKS', data}) as const
 export const changeMinMaxCards = (data: number[]) => ({type: 'packs/CHANGE_MIN_MAX_PACKS', data}) as const
 export const changeParamsPacks = (params: PackParamsType) => ({type: 'packs/CHANGE_PARAMS', params}) as const
 export const changeStatusSortPacks = (statusSort: NameCellType, regulator: SortType) => ({type: 'packs/CHANGE_STATUS_SORT', statusSort, regulator}) as const
 
 
-export const setPacks = (): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
+export const setPacks = (): AppThunk => async (dispatch, getState) => {
     const params = getState().packs.params
 
     dispatch(setAppStatusAC('loading'))

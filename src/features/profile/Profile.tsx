@@ -6,7 +6,7 @@ import {logoutThunkAC} from "./profile-reducer";
 import {Navigate} from "react-router-dom";
 import {EditableSpan} from "./EditableProfileSpan";
 import {editNameThunkAC} from "../auth/auth-reducer";
-import {Button} from "../../common/UniversalComponents/Button";
+import {UniversalButton} from "../../common/UniversalComponents/UniversalButton";
 
 
 
@@ -44,7 +44,7 @@ export const Profile = React.memo(() => {
                 <h2>{email}</h2>
                 <h2> Packs: {publicCardPacksCount}</h2>
             </li>
-            <Button name={'LOG OUT'} callback={logoutHandler}/>
+            <UniversalButton name={'LOG OUT'} callback={logoutHandler}/>
         </div>
     );
 });

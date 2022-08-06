@@ -6,7 +6,7 @@ import {HeaderTable} from "../../common/UniversalComponents/tableComponent/Heade
 import {TableWrapper} from '../../common/UniversalComponents/tableComponent/TableWrapper';
 import style from "./Cards.module.css"
 import {CardsTable} from "../../common/UniversalComponents/tableComponent/CardsTable";
-import {Button} from "../../common/UniversalComponents/Button";
+import {UniversalButton} from "../../common/UniversalComponents/UniversalButton";
 import {useDebounce} from "../../common/hooks/useDebounce";
 import {PaginationComponent} from "../../common/UniversalComponents/tableComponent/Pagination";
 import {PageCount} from "../../common/UniversalComponents/tableComponent/PageCount";
@@ -52,7 +52,7 @@ export const Cards = () => {
             <div className={style.searchBnt}>
                 <InputTable callback={() => {
                 }}/>
-                {userId === packId && <Button callback={addCard} name={'Add new card'}/>}
+                {userId === packId && <UniversalButton callback={addCard} name={'Add new card'}/>}
             </div>
             <TableWrapper className={style.bodyTable}>
                 <HeaderTable data={nameColumn}/>

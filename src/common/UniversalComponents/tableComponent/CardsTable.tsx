@@ -3,11 +3,10 @@ import React from 'react';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import {CardPackType} from "../../../features/packs/packsApi";
-import {Link} from 'react-router-dom';
-import {CardType} from "../../../features/cards/cardsAPI";
-import {useAppDispatch} from "../../hooks/hooks";
-import {changeCard, removeCard} from "../../../features/cards/cards-reducer";
+import {CardType} from '../../../features/cards/cardsAPI';
+import {useAppDispatch} from '../../hooks/hooks';
+import {changeCard, removeCard} from '../../../features/cards/cards-reducer';
+import {Rating} from '@mui/material';
 
 type PacksTablePropsType = {
     data: CardType[]
@@ -41,7 +40,10 @@ export const CardsTable = ({userId, data, callback, callbackUpdate, callbackPage
                     <TableCell component="th" scope="row">{row.question}</TableCell>
                     <TableCell align="right">{row.answer}</TableCell>
                     <TableCell align="right">{row.updated}</TableCell>
-                    <TableCell align="right">{row.grade}</TableCell>
+
+                    <TableCell align="right">
+                        <Rating name="card-grade" value={row.grade} readOnly/>
+                    </TableCell>
                     {userId === row.user_id && <TableCell align="right">
                         {userId === row.user_id && <span><button
                             onClick={() => deleteCard(row._id)}>dell</button><span> </span><button

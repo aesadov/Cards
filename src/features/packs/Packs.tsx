@@ -6,7 +6,7 @@ import {changeParamsPacks, createPack, removePack, setPacks, updateUserPack} fro
 import {useDebounce} from "../../common/hooks/useDebounce";
 import {PacksTable} from "../../common/UniversalComponents/tableComponent/PacksTable";
 import {InputTable} from "../../common/UniversalComponents/tableComponent/InputTable";
-import {Button} from '../../common/UniversalComponents/Button';
+import {UniversalButton} from '../../common/UniversalComponents/UniversalButton';
 import {PackParamsType} from "./packsApi";
 import {PaginationComponent} from "../../common/UniversalComponents/tableComponent/Pagination";
 import {PageCount} from "../../common/UniversalComponents/tableComponent/PageCount";
@@ -102,7 +102,7 @@ export const Packs = () => {
                     callback={minMaxHandler}
                 />
                 <InputTable callback={filteredPacks}/>
-                <Button name={'Add Pack'} callback={addPack}/>
+                <UniversalButton name={'Add Pack'} callback={addPack}/>
             </div>
             <TableWrapper>
                 <HeaderTable data={nameColumn}/>

@@ -1,6 +1,6 @@
 import React from 'react';
-import style from "../profile/profile.module.css";
-import {useAppSelector} from "../../common/hooks/hooks";
+import style from './Header.module.css';
+import {useAppSelector} from '../../hooks/hooks';
 import { Link } from 'react-router-dom';
 
 export const Header = () => {

@@ -5,6 +5,7 @@ import {NavLink} from "react-router-dom";
 import {createUser} from "../auth-reducer";
 import {useAppDispatch, useAppSelector} from "../../../common/hooks/hooks";
 import {Navigate} from 'react-router-dom';
+import {Wrapper} from "../../../common/UniversalComponents/Wrapper";
 
 export type FormikErrorType = {
     email?: string
@@ -55,49 +56,46 @@ export const Registration = () => {
         return <Navigate to={'/login'}/>
     }
 
-    return <Grid container justifyContent={'center'} style={{padding: '40px'}}>
-        <Grid item justifyContent={'center'}>
-            <Paper elevation={3} style={{padding: '20px'}}>
-                <FormControl>
-                    <form onSubmit={formik.handleSubmit}>
-                        <FormGroup style={{paddingBottom: '20px'}}>
-                            <TextField
-                                label="Email"
-                                margin="normal"
-                                variant="standard"
-                                {...formik.getFieldProps('email')}
-                            />
-                            {formik.touched.email && formik.errors.email ?
-                                <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
-                            <TextField
-                                type="password"
-                                label="Password"
-                                variant="standard"
-                                margin="normal"
-                                {...formik.getFieldProps('password')}
-                            />
-                            {formik.touched.password && formik.errors.password ?
-                                <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+    return <Wrapper>
+        <FormControl>
+            <form onSubmit={formik.handleSubmit}>
+                <FormGroup style={{paddingBottom: '20px'}}>
+                    <TextField
+                        label="Email"
+                        margin="normal"
+                        variant="standard"
+                        {...formik.getFieldProps('email')}
+                    />
+                    {formik.touched.email && formik.errors.email ?
+                        <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                    <TextField
+                        type="password"
+                        label="Password"
+                        variant="standard"
+                        margin="normal"
+                        {...formik.getFieldProps('password')}
+                    />
+                    {formik.touched.password && formik.errors.password ?
+                        <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
 
-                            <TextField
-                                type="password"
-                                label="Confirm Password"
-                                variant="standard"
-                                margin="normal"
-                                {...formik.getFieldProps('confirmPassword')}
-                            />
-                            {formik.touched.confirmPassword && formik.errors.confirmPassword ?
-                                <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
+                    <TextField
+                        type="password"
+                        label="Confirm Password"
+                        variant="standard"
+                        margin="normal"
+                        {...formik.getFieldProps('confirmPassword')}
+                    />
+                    {formik.touched.confirmPassword && formik.errors.confirmPassword ?
+                        <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
 
-                            <Button disabled={status === 'loading'} type={'submit'} variant={'contained'} color={'primary'} style={{marginTop: '20px'}}>
-                                Sign Up
-                            </Button>
-                        </FormGroup>
-                        <h2 style={{paddingBottom: '10px', opacity: '.7'}}>Do you have an account?</h2>
-                        <NavLink to={'/login'} style={{color: 'blue'}}>Sign In</NavLink>
-                    </form>
-                </FormControl>
-            </Paper>
-        </Grid>
-    </Grid>
+                    <Button disabled={status === 'loading'} type={'submit'} variant={'contained'} color={'primary'}
+                            style={{marginTop: '20px'}}>
+                        Sign Up
+                    </Button>
+                </FormGroup>
+                <h2 style={{paddingBottom: '10px', opacity: '.7'}}>Do you have an account?</h2>
+                <NavLink to={'/login'} style={{color: 'blue'}}>Sign In</NavLink>
+            </form>
+        </FormControl>
+    </Wrapper>
 }

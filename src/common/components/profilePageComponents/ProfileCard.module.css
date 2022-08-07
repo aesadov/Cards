@@ -1,0 +1,15 @@
+.personal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+}
+.avatar {
+    max-width: 200px;
+    max-height: 200px;
+    padding-top: 30px;
+}
+
+.btn{
+    padding: 5px 10px;
+}

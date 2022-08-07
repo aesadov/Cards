@@ -21,14 +21,14 @@ export const authAPI = {
         return axios.post(`https://neko-back.herokuapp.com/2.0/auth/forgot`, data, {withCredentials: true})
     },
     logout: () => {
-        return instance.delete('auth/me', {})
+        return instance.delete('auth/me')
 },
     updateUserName: (name: string) => {
         return instance.put('auth/me', {name})
     },
 
     me : () => {
-        return instance.post<{},AxiosResponse<UserType>>('auth/me', {})
+        return instance.post<{},AxiosResponse<UserType>>('auth/me')
     },
     setNewPass: (data: SetNewPassType) => {
         return instance.post<SetNewPassType, AxiosResponse<SetNewPassResponseType>>('auth/set-new-password', data)

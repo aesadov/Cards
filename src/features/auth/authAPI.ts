@@ -15,7 +15,7 @@ export const authAPI = {
         return instance.post<LoginParamsType, AxiosResponse<UserType>>('auth/login', data)
     },
     registration: (data: RegisterType) => {
-        return instance.post<AxiosResponse<{ response: { data: { error: string } } }>>(`auth/register`, data)
+        return instance.post<AxiosResponse<ErrorType>>(`auth/register`, data)
     },
     update: (data: UpdatePasswordType) => {
         return axios.post(`https://neko-back.herokuapp.com/2.0/auth/forgot`, data, {withCredentials: true})
@@ -82,4 +82,12 @@ export type UserType = {
     rememberMe: boolean
 
     error?: string
+}
+
+export type ErrorType = {
+    response:{
+     data: {
+         error: string
+     }
+    }
 }

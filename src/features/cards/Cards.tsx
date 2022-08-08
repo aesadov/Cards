@@ -1,6 +1,9 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../common/hooks/hooks";
-import {setCards} from "./cards-reducer";
+import {addNewCard, changeParamsCards, setCards} from "./cards-reducer";
+import {InputTable} from "../../common/UniversalComponents/tableComponent/InputTable";
+import {HeaderTable} from "../../common/UniversalComponents/tableComponent/HeaderTable";
+import {TableWrapper} from '../../common/UniversalComponents/tableComponent/TableWrapper';
 import style from "./Cards.module.css"
 import {CardsTable} from "../../common/components/cardsPageComponents/CardsTable";
 import {CardsHeader} from "../../common/components/cardsPageComponents/CardsHeader";
@@ -24,6 +27,7 @@ export const Cards = () => {
         <div className={style.bodyPage}>
             <CardsHeader/>
             <CardsTable/>
+            <UniversalButton callback={addCard} name={'Add new card'}/>
         </div>
     );
 };

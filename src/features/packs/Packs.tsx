@@ -40,6 +40,7 @@ export const Packs = () => {
             <button onClick={()=> setSearchParams({common: 'bla'})}>ser</button>
             <PacksHeader/>
             <PacksTable/>
+           // <UniversalButton name={'Add Pack'} callback={addPack}/>
         </div>
     );
 };

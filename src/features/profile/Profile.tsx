@@ -16,6 +16,7 @@ export const Profile = React.memo(() => {
 
     return <Wrapper>
         <ProfileCard/>
+        //<UniversalButton name={'LOG OUT'} callback={logoutHandler}/>
     </Wrapper>
 });
 

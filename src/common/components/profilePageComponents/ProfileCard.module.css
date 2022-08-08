@@ -10,6 +10,15 @@
     padding-top: 30px;
 }
 
+.text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.item{
+    margin-bottom: 25px;
+}
 .btn{
     padding: 5px 10px;
 }

@@ -3,7 +3,7 @@ import {changeParamsPacks, changeStatusSortPacks} from "../../features/packs/pac
 import {Dispatch} from "redux";
 
 
-export const sortHelperUtuils = (regulator: SortType, cell: NameCellType, dispatch: Dispatch ) => {
+export const sortHelperUtils = (regulator: SortType, cell: NameCellType, dispatch: Dispatch ) => {
 
 
     if(cell === 'packName'){

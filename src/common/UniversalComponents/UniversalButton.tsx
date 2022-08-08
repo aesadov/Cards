@@ -14,4 +14,3 @@ export const UniversalButton = React.memo(({name, callback}:PropsType) => {
 
     return (<Button variant='contained' size='small' onClick={onClickHandler}>{name}</Button>);
 });
-

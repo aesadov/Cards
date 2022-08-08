@@ -2,11 +2,12 @@ import React from 'react';
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
-import IconButton from '@mui/material/IconButton/IconButton';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+
+import {SortButton} from "../SortButton";
+import {NameCellType} from "../../TypeForSort";
 
 type HeaderType = {
-    data: Array<{name: string, isDone: boolean}>
+    data: Array<{name: string, isDone: boolean, sortName: NameCellType}>
 }
 
 export const HeaderTable = (props: HeaderType) => {
@@ -15,7 +16,7 @@ export const HeaderTable = (props: HeaderType) => {
         return (
             <TableCell align={i !== 0 ? 'right' : 'left'}
                        key={i}>
-                {a.name} {a.isDone && <IconButton aria-label="arrow-down"><ArrowDropDownIcon color='info'/></IconButton>}
+                {a.name} {a.isDone && <SortButton nameHeaderCell={a.sortName}/>}
             </TableCell>
             //<span><SortButton nameHeaderCell={a.sortNane}/></span>
         )

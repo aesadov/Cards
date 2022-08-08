@@ -2,11 +2,12 @@ import React from 'react';
 import {ShowPacksButton} from "../../UniversalComponents/tableComponent/ShowPacksButton";
 import {RangeTable} from "../../UniversalComponents/tableComponent/RangeTable";
 import {InputTable} from "../../UniversalComponents/tableComponent/InputTable";
-import {Button} from "../../UniversalComponents/Button";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {changeParamsPacks, createPack} from "../../../features/packs/packs-reducer";
+import {changeParamsPacks} from "../../../features/packs/packs-reducer";
+import {ModalAddPack} from "../modals/ModalAddPack";
 
 export const PacksHeader = () => {
+
     const dispatch = useAppDispatch()
 
     const min = useAppSelector(state => state.packs.minCardsCount)
@@ -24,10 +25,6 @@ export const PacksHeader = () => {
         dispatch(changeParamsPacks({user_id}))
     }
 
-    const addPack = () => {
-        dispatch(createPack())
-    }
-
     return (
         <div style={{display: 'flex', gap: '40px', marginBottom: '25px', alignItems: "center"}}>
             <ShowPacksButton paramsId={paramsUserId} callback={showPacksButtonHandler} userId={userId}/>
@@ -41,7 +38,7 @@ export const PacksHeader = () => {
                 callback={minMaxHandler}
             />
             <InputTable page={'packs'}/>
-            <Button name={'Add Pack'} callback={addPack}/>
+            <ModalAddPack/>
         </div>
     );
 };

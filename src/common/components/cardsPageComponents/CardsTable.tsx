@@ -11,12 +11,12 @@ import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {changeParamsCards} from "../../../features/cards/cards-reducer";
 
 
-const nameColumn: Array<{ name: string, isDone: boolean, sortNane: NameCellType }> = [
-    {name: 'Question', isDone: false, sortNane: 'update'},
-    {name: 'Answer', isDone: false, sortNane: 'update'},
-    {name: 'Last Updated', isDone: true, sortNane: 'update'},
-    {name: 'Grade', isDone: false, sortNane: 'update'},
-    {name: 'Action', isDone: false, sortNane: 'update'},
+const nameColumn: Array<{ name: string, isDone: boolean, sortName: NameCellType }> = [
+    {name: 'Question', isDone: false, sortName: 'update'},
+    {name: 'Answer', isDone: false, sortName: 'update'},
+    {name: 'Last Updated', isDone: true, sortName: 'update'},
+    {name: 'Grade', isDone: false, sortName: 'update'},
+    {name: 'Action', isDone: false, sortName: 'update'},
 ]
 
 export const CardsTable = () => {

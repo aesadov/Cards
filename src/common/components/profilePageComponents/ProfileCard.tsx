@@ -2,10 +2,10 @@ import React, {useCallback} from 'react';
 import style from "./ProfileCard.module.css";
 import Avatar from "../../../assets/Male-Avatar.png";
 import {EditableSpan} from "./EditableProfileSpan";
-import {Button} from "../../UniversalComponents/Button";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {logoutThunkAC} from "../../../features/profile/profile-reducer";
 import {editNameThunkAC} from "../../../features/auth/auth-reducer";
+import {UniversalButton} from "../../UniversalComponents/UniversalButton";
 
 export const ProfileCard = () => {
 
@@ -35,12 +35,12 @@ export const ProfileCard = () => {
                  alt="avatar"
             />
 
-            <li>
-                <EditableSpan name={name} callback={changeNameHandler}/>
-                <h2>{email}</h2>
-                <h2> Packs: {publicCardPacksCount}</h2>
+            <li className={style.text}>
+                <EditableSpan className={style.item} name={name} callback={changeNameHandler}/>
+                <h2 className={style.item}>{email}</h2>
+                <h2 className={style.item}> Packs: {publicCardPacksCount}</h2>
             </li>
-            <Button className={style.btn} name={'LOG OUT'} callback={logoutHandler}/>
+            <UniversalButton name={'LOG OUT'} callback={logoutHandler}/>
         </>
     );
 };

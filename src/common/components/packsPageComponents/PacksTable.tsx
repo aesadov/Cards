@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {PacksTableBody} from "./PacksTableBody";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -8,18 +8,21 @@ import {NameCellType} from "../../TypeForSort";
 import {PaginationComponent} from "../../UniversalComponents/tableComponent/Pagination";
 import {PageCount} from "../../UniversalComponents/tableComponent/PageCount";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {changeParamsPacks, createPack} from "../../../features/packs/packs-reducer";
-import {Button} from "../../UniversalComponents/Button";
+import {changeParamsPacks} from "../../../features/packs/packs-reducer";
+import {ModalAddPack} from "../modals/ModalAddPack";
+import {ModalUpdatePack} from "../modals/ModalUpdatePack";
 
-const nameColumn: Array<{ name: string, isDone: boolean, sortNane: NameCellType }> = [
-    {name: 'Pack Name', isDone: true, sortNane: 'packName'},
-    {name: 'Cards', isDone: true, sortNane: 'cards'},
-    {name: 'Last Updated', isDone: true, sortNane: 'update'},
-    {name: 'Created by', isDone: true, sortNane: 'created'},
-    {name: 'Action', isDone: false, sortNane: 'action'},
+const nameColumn: Array<{ name: string, isDone: boolean, sortName: NameCellType }> = [
+    {name: 'Pack Name', isDone: true, sortName: 'packName'},
+    {name: 'Cards', isDone: true, sortName: 'cards'},
+    {name: 'Last Updated', isDone: true, sortName: 'update'},
+    {name: 'Created by', isDone: true, sortName: 'created'},
+    {name: 'Action', isDone: false, sortName: 'action'},
 ]
 
 export const PacksTable = () => {
+
+    const [modal, setModal] = useState<boolean>(false)
 
     const dispatch = useAppDispatch()
 
@@ -37,23 +40,20 @@ export const PacksTable = () => {
         dispatch(changeParamsPacks({pageCount}))
     }
 
-    const addPack = () => {
-        dispatch(createPack())
-    }
-
     const page = paramsPage ? paramsPage : defaultPage
     const pageTotalCount = cardPacksTotalCount ? Math.ceil(cardPacksTotalCount / pageCount) : 0
     const pageSize = paramsPageCount ? paramsPageCount : pageCount
 
     return (
         <>
+            {modal && <ModalUpdatePack callback={()=>setModal(false)} value={modal}/>}
             {packs.length > 0
                 ?
                 <div>
                     < TableContainer component={Paper}>
                         <Table sx={{minWidth: 650}} aria-label="simple table">
                             <HeaderTable data={nameColumn}/>
-                            <PacksTableBody/>
+                            <PacksTableBody callback={()=>setModal(true)}/>
                         </Table>
                     </TableContainer>
                     <div style={{display: "flex", marginTop: " 20px", alignItems: "center", gap: "20px"}}>
@@ -64,7 +64,7 @@ export const PacksTable = () => {
                 :
                 <div>
                     <h1 style={{marginTop: '50px'}}>You don't have pack. Click add new pack</h1>
-                    <Button name={'Add Pack'} callback={addPack}/>
+                    <ModalAddPack/>
                 </div>
             }
         </>

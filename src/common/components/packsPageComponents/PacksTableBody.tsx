@@ -4,32 +4,32 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import {Link} from 'react-router-dom';
-import {PackType} from "../../../features/packs/packsApi";
-
-type PacksTablePropsType = {
-    data?: PackType[]
-    userId?: string
-    callback?: (id: string) => void
-    callbackUpdate?: (id: string) => void
-    callbackPage?: (id: string) => void
-}
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {removePack, updateUserPack} from "../../../features/packs/packs-reducer";
+import {changeParamsCards} from "../../../features/cards/cards-reducer";
 
 
-export const PacksTable = ({userId, data, callback, callbackUpdate, callbackPage}: PacksTablePropsType) => {
+
+export const PacksTableBody = () => {
+
+    const dispatch = useAppDispatch()
+
+    const packs = useAppSelector((state) => state.packs.cardPacks)
+    const userId = useAppSelector(state => state.auth.user._id)
 
     const deletePack = (id: string) => {
-        callback && callback(id)
+        dispatch(removePack(id))
     }
     const updatePack = (id: string) => {
-        callbackUpdate && callbackUpdate(id)
+        dispatch(updateUserPack(id))
     }
     const cardsPageHandler = (id: string) => {
-        callbackPage && callbackPage(id)
+        dispatch(changeParamsCards({cardsPack_id: id}))
     }
 
     return (
         <TableBody>
-            {data && data.map((row) => (
+            {packs.map((row) => (
                 <TableRow
                     key={row._id}
                     sx={{'&:last-child td, &:last-child th': {border: 0}}}

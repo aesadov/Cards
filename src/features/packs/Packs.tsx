@@ -2,11 +2,14 @@ import React, {useEffect} from 'react';
 
 import {useAppDispatch, useAppSelector} from "../../common/hooks/hooks";
 import {setPacks} from "./packs-reducer";
-import {Navigate} from "react-router-dom";
+import {Navigate, useSearchParams} from "react-router-dom";
 import {PacksTable} from "../../common/components/packsPageComponents/PacksTable";
 import {PacksHeader} from "../../common/components/packsPageComponents/PacksHeader";
 
 export const Packs = () => {
+    const [searchParams, setSearchParams] = useSearchParams()
+    console.log(searchParams)
+    console.log(Object.fromEntries(searchParams))
 
     const dispatch = useAppDispatch()
 
@@ -34,6 +37,7 @@ export const Packs = () => {
             flexDirection: 'column',
             margin: '0 auto'
         }}>
+            <button onClick={()=> setSearchParams({common: 'bla'})}>ser</button>
             <PacksHeader/>
             <PacksTable/>
         </div>

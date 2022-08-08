@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {NameCellType, SortType} from "../TypeForSort";
-import {sortHelper} from "../utils/sortHelper";
+import {sortHelperUtuils} from "../utils/sortHelper-utuils";
 import {useAppDispatch, useAppSelector} from "../hooks/hooks";
 
 type SortButtonType = {
@@ -21,7 +21,7 @@ const initial = nameHeaderCell === sortStatus ? regulator : 'decr'
 
     const onClickHandler = (value: SortType) => {
         setSort(value)
-        sortHelper(value, nameHeaderCell, dispatch)
+        sortHelperUtuils(value, nameHeaderCell, dispatch)
     }
 
     return (

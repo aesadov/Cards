@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {HeaderTable} from "../../UniversalComponents/tableComponent/HeaderTable";
 import {NameCellType} from "../../TypeForSort";
 import {CardsTableBody} from "./CardsTableBody";
@@ -10,6 +10,7 @@ import {PaginationComponent} from "../../UniversalComponents/tableComponent/Pagi
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {changeParamsCards} from "../../../features/cards/cards-reducer";
 import {ModalCard} from "../modals/cards/ModalCard";
+import {ModalEditCard} from "../modals/cards/ModalEditCard";
 
 
 const nameColumn: Array<{ name: string, isDone: boolean, sortName: NameCellType }> = [
@@ -21,6 +22,9 @@ const nameColumn: Array<{ name: string, isDone: boolean, sortName: NameCellType 
 ]
 
 export const CardsTable = () => {
+
+    const [updateId, setUpdateId] = useState<string>('')
+    const [modalUpdate, setModalUpdate] = useState<boolean>(false)
 
     const dispatch = useAppDispatch()
 
@@ -42,13 +46,16 @@ export const CardsTable = () => {
 
 
     return (
-        <>
+        <> {modalUpdate && <ModalEditCard id={updateId} modalUpdate={modalUpdate}/>}
             {cards.length > 0
             ? < div>
                 < TableContainer component={Paper}>
                     <Table sx={{minWidth: 650}} aria-label="simple table">
                         <HeaderTable data={nameColumn}/>
-                        <CardsTableBody/>
+                        <CardsTableBody  callbackUpdate={(id)=>{
+                            setUpdateId(id)
+                            setModalUpdate(true)
+                        }}/>
                     </Table>
                 </TableContainer>
 

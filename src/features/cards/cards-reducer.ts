@@ -1,6 +1,6 @@
 import {AppRootStateType, AppThunk} from "../../app/store";
 import {setAppStatusAC} from "../../app/app-reducer";
-import {CardPostType, cardsAPI, CardsParamsType, CardType, ResponseCardsType} from "./cardsAPI";
+import {CardPostType, cardsAPI, CardsParamsType, CardType, CardUpdateType, ResponseCardsType} from "./cardsAPI";
 
 const initialState = {
     cards: [] as CardType[],
@@ -81,11 +81,11 @@ export const removeCard = (_id: string): AppThunk => async dispatch => {
     }
 }
 
-export const changeCard = (_id: string): AppThunk => async dispatch => {
+export const changeCard = (data: CardUpdateType): AppThunk => async dispatch => {
 
     dispatch(setAppStatusAC('loading'))
     try {
-        await cardsAPI.updateCard({_id, question: 'New ?'})
+        await cardsAPI.updateCard(data)
         dispatch(setCards())
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {

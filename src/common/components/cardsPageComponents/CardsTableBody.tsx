@@ -10,18 +10,24 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-export const CardsTableBody = () => {
+type CardsTableBodyType = {
+    callbackUpdate?: (id: string) => void
+    callbackDelete?: (id: string) => void
+}
+
+export const CardsTableBody = ({callbackUpdate, callbackDelete}: CardsTableBodyType) => {
 
     const cards = useAppSelector((state) => state.cards.cards)
     const userId = useAppSelector((state) => state.auth.user._id)
 
-    const dispatch = useAppDispatch()
 
     const deleteCard = (id: string) => {
-        dispatch(removeCard(id))
+        // dispatch(removeCard(id))
+        callbackDelete &&  callbackDelete(id)
     }
     const updateCard = (id: string) => {
-        dispatch(changeCard(id))
+        // dispatch(changeCard(id))
+        callbackUpdate && callbackUpdate(id)
     }
 
     return <TableBody>

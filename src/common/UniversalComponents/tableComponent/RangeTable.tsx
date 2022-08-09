@@ -14,8 +14,8 @@ type PropsType = {
 
 export const RangeTable = ({minDistance, min, max, callback, width, newMin, newMax}: PropsType) => {
 
-    let minInitial = newMin ? newMin : min
-    let maxInitial = newMax ? newMax : max
+     let minInitial = newMin ? newMin : min
+     let maxInitial = newMax ? newMax : max
 
     const [value, setValue] = React.useState<number[]>([minInitial, maxInitial]);
 
@@ -33,8 +33,12 @@ export const RangeTable = ({minDistance, min, max, callback, width, newMin, newM
         } else {
             setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
         }
-        callback && callback(value)
+
     };
+    
+    const onChangeCommittedHandler = (event: React.SyntheticEvent | Event, value: number | Array<number>) => {
+        Array.isArray(value) && callback && callback(value)
+    }
 
     return (
         <div style={{maxWidth: '350px'}}>
@@ -43,6 +47,7 @@ export const RangeTable = ({minDistance, min, max, callback, width, newMin, newM
                 <Slider
                     value={value}
                     onChange={handleChange}
+                    onChangeCommitted={onChangeCommittedHandler}
                     valueLabelDisplay="auto"
                     min={min}
                     max={max}

@@ -1,20 +1,36 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {TextField} from "@mui/material";
-import {PackParamsType} from "../../../features/packs/packsApi";
+import {useDebounce} from "../../hooks/useDebounce";
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {changeParamsPacks} from "../../../features/packs/packs-reducer";
+import {changeParamsCards} from "../../../features/cards/cards-reducer";
+
+type PageType = 'packs' | 'cards'
 
 type InputPropsType = {
-    callback: (data: PackParamsType) => void
+    page: PageType
 }
 
-export const InputTable = ({callback}: InputPropsType) => {
+export const InputTable = ({page}: InputPropsType) => {
 
+    const id = useAppSelector((state) => state.cards.params.cardsPack_id)
+
+    const dispatch = useAppDispatch()
     const [value, setValue] = useState<string>('')
+    const debounce = useDebounce<string>(value, 1000)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setValue(e.currentTarget.value)
-        callback({packName: value})
+        setValue(e.target.value)
     }
 
-    return <TextField value={value} fullWidth id="fullWidth" placeholder={'Search...'} onChange={onChangeHandler}/>
+      useEffect(() => {
+        if (debounce && page === 'packs') {
+            dispatch(changeParamsPacks({packName: value}))
+        } else if(debounce && page === 'cards'){
+            dispatch(changeParamsCards({cardsPack_id: id,cardQuestion: value}))
+        }
+      }, [debounce])
+
+    return<> <TextField value={value} fullWidth id="fullWidth" placeholder={'Search...'} onChange={onChangeHandler}/>{debounce}</>
 };
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
-import {Login} from "../auth/components/Login";
-import {Registration} from "../auth/components/Registration";
-import {ForgotPassword} from "../auth/components/ForgotPassword";
-import {NewPassword} from "../auth/components/NewPassword";
-import {Profile} from "../profile/Profile";
-import {Error404} from "../../common/Error-404";
-import {Packs} from "../packs/Packs";
-import {Cards} from "../cards/Cards";
+import {Login} from "../../../features/auth/components/Login";
+import {Registration} from "../../../features/auth/components/Registration";
+import {ForgotPassword} from "../../../features/auth/components/ForgotPassword";
+import {NewPassword} from "../../../features/auth/components/NewPassword";
+import {Profile} from "../../../features/profile/Profile";
+import {Error404} from "../../Error-404";
+import {Packs} from "../../../features/packs/Packs";
+import {Cards} from "../../../features/cards/Cards";
 
 export const RoutesForProject = () => {
     return (

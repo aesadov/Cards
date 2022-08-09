@@ -19,15 +19,11 @@ export const PageCount = ({callback, pageCount}: PageCountPropsType) => {
         <Box sx={{ maxWidth: 55 }}>
             <FormControl fullWidth>
                 <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                    Size
+                    Show
                 </InputLabel>
                 <NativeSelect
                     onChange={onChangeHandler}
                     defaultValue={pageCount}
-                    inputProps={{
-                        name: 'age',
-                        id: 'uncontrolled-native',
-                    }}
                 >
                     <option value={4}>4</option>
                     <option value={8}>8</option>

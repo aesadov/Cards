@@ -9,7 +9,6 @@ import {PageCount} from "../../UniversalComponents/tableComponent/PageCount";
 import {PaginationComponent} from "../../UniversalComponents/tableComponent/Pagination";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {changeParamsCards} from "../../../features/cards/cards-reducer";
-import {ModalCard} from "../modals/cards/ModalCard";
 import {ModalEditCard} from "../modals/cards/ModalEditCard";
 
 
@@ -52,7 +51,7 @@ export const CardsTable = () => {
                 < TableContainer component={Paper}>
                     <Table sx={{minWidth: 650}} aria-label="simple table">
                         <HeaderTable data={nameColumn}/>
-                        <CardsTableBody  callbackUpdate={(id)=>{
+                        <CardsTableBody callbackUpdate={(id)=>{
                             setUpdateId(id)
                             setModalUpdate(true)
                         }}/>

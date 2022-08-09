@@ -4,8 +4,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import {Rating} from '@mui/material';
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {changeCard, removeCard} from "../../../features/cards/cards-reducer";
+import {useAppSelector} from "../../hooks/hooks";
 import IconButton from "@mui/material/IconButton/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -22,11 +21,9 @@ export const CardsTableBody = ({callbackUpdate, callbackDelete}: CardsTableBodyT
 
 
     const deleteCard = (id: string) => {
-        // dispatch(removeCard(id))
         callbackDelete &&  callbackDelete(id)
     }
     const updateCard = (id: string) => {
-        // dispatch(changeCard(id))
         callbackUpdate && callbackUpdate(id)
     }
 

@@ -4,11 +4,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton/IconButton';
 import Stack from '@mui/material/Stack';
 import Button from "@mui/material/Button";
-import {InputModal} from "./InputModal";
-import {WrapperModal} from "./WrapperModal";
-import {createPack} from "../../../features/packs/packs-reducer";
-import {useAppDispatch} from "../../hooks/hooks";
-import {UniversalButton} from "../../UniversalComponents/UniversalButton";
+import {InputModal} from "../InputModal";
+import {WrapperModal} from "../WrapperModal";
+import {createPack} from "../../../../features/packs/packs-reducer";
+import {useAppDispatch} from "../../../hooks/hooks";
+import {UniversalButton} from "../../../UniversalComponents/UniversalButton";
+import {CheckboxComponent} from "../../../UniversalComponents/CheckboxComponent";
 
 
 export const ModalAddPack = () => {
@@ -17,10 +18,10 @@ export const ModalAddPack = () => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [text, setText] = useState<string>('')
-    // const [isPrivate, setIsPrivate] = useState<boolean>(false)
+    const [isPrivate, setIsPrivate] = useState<boolean>(false)
 
     const addPack = () => {
-        dispatch(createPack({name: text, private: false}))
+        dispatch(createPack({name: text, private: isPrivate}))
     }
 
     return (
@@ -34,10 +35,7 @@ export const ModalAddPack = () => {
                     </IconButton>
                 </div>
                 <InputModal callback={(text) => setText(text)} label={'Add new pack'}/>
-                <FormControlLabel
-                    label='Private pack'
-                    control={<Checkbox/>}
-                />
+                <CheckboxComponent callback={(value)=>setIsPrivate(value)}/>
                 <Stack direction="row" spacing={2}>
                     <Button onClick={() => setIsOpen(false)} variant="outlined">
                         Cancel

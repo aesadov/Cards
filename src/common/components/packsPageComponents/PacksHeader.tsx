@@ -4,7 +4,7 @@ import {RangeTable} from "../../UniversalComponents/tableComponent/RangeTable";
 import {InputTable} from "../../UniversalComponents/tableComponent/InputTable";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {changeParamsPacks} from "../../../features/packs/packs-reducer";
-import {ModalAddPack} from "../modals/ModalAddPack";
+import {ModalAddPack} from "../modals/packs/ModalAddPack";
 
 export const PacksHeader = () => {
 

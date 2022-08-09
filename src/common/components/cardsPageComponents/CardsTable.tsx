@@ -9,6 +9,7 @@ import {PageCount} from "../../UniversalComponents/tableComponent/PageCount";
 import {PaginationComponent} from "../../UniversalComponents/tableComponent/Pagination";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {changeParamsCards} from "../../../features/cards/cards-reducer";
+import {ModalCard} from "../modals/cards/ModalCard";
 
 
 const nameColumn: Array<{ name: string, isDone: boolean, sortName: NameCellType }> = [
@@ -41,7 +42,8 @@ export const CardsTable = () => {
 
 
     return (
-        <>{cards.length > 0
+        <>
+            {cards.length > 0
             ? < div>
                 < TableContainer component={Paper}>
                     <Table sx={{minWidth: 650}} aria-label="simple table">

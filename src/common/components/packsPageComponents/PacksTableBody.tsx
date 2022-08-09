@@ -13,10 +13,11 @@ import {removePack, setPackId} from "../../../features/packs/packs-reducer";
 import {changeParamsCards} from "../../../features/cards/cards-reducer";
 
 type PropsType = {
-    callback: () => void
+    callbackUpdate?: () => void
+    callbackDelete?: () => void
 }
 
-export const PacksTableBody = ({callback}: PropsType) => {
+export const PacksTableBody = ({callbackUpdate, callbackDelete}: PropsType) => {
 
     const dispatch = useAppDispatch()
 
@@ -24,11 +25,12 @@ export const PacksTableBody = ({callback}: PropsType) => {
     const userId = useAppSelector(state => state.auth.user._id)
 
     const deletePack = (id: string) => {
-        dispatch(removePack(id))
+        dispatch(setPackId(id))
+        callbackDelete && callbackDelete()
     }
     const updatePack = (id: string) => {
         dispatch(setPackId(id))
-        callback()
+        callbackUpdate && callbackUpdate()
     }
     const cardsPageHandler = (id: string) => {
         dispatch(changeParamsCards({cardsPack_id: id}))

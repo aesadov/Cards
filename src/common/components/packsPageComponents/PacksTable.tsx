@@ -9,8 +9,9 @@ import {PaginationComponent} from "../../UniversalComponents/tableComponent/Pagi
 import {PageCount} from "../../UniversalComponents/tableComponent/PageCount";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {changeParamsPacks} from "../../../features/packs/packs-reducer";
-import {ModalAddPack} from "../modals/ModalAddPack";
-import {ModalUpdatePack} from "../modals/ModalUpdatePack";
+import {ModalAddPack} from "../modals/packs/ModalAddPack";
+import {ModalUpdatePack} from "../modals/packs/ModalUpdatePack";
+import {ModalDeletePack} from "../modals/packs/ModalDeletePack";
 
 const nameColumn: Array<{ name: string, isDone: boolean, sortName: NameCellType }> = [
     {name: 'Pack Name', isDone: true, sortName: 'packName'},
@@ -22,7 +23,8 @@ const nameColumn: Array<{ name: string, isDone: boolean, sortName: NameCellType 
 
 export const PacksTable = () => {
 
-    const [modal, setModal] = useState<boolean>(false)
+    const [modalUpdate, setModalUpdate] = useState<boolean>(false)
+    const [modalDelete, setModalDelete] = useState<boolean>(false)
 
     const dispatch = useAppDispatch()
 
@@ -46,14 +48,15 @@ export const PacksTable = () => {
 
     return (
         <>
-            {modal && <ModalUpdatePack callback={()=>setModal(false)} value={modal}/>}
+            {modalUpdate && <ModalUpdatePack callback={()=>setModalUpdate(false)} value={modalUpdate}/>}
+            {modalDelete && <ModalDeletePack callback={()=>setModalDelete(false)} value={modalDelete}/>}
             {packs.length > 0
                 ?
                 <div>
                     < TableContainer component={Paper}>
                         <Table sx={{minWidth: 650}} aria-label="simple table">
                             <HeaderTable data={nameColumn}/>
-                            <PacksTableBody callback={()=>setModal(true)}/>
+                            <PacksTableBody callbackUpdate={()=>setModalUpdate(true)} callbackDelete={()=>setModalDelete(true)}/>
                         </Table>
                     </TableContainer>
                     <div style={{display: "flex", marginTop: " 20px", alignItems: "center", gap: "20px"}}>

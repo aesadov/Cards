@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     cards: cardsReducer,
 })
 
-export const store = createStore(rootReducer, loadState(), applyMiddleware(thunkMiddleware));
+export const store = createStore(rootReducer,loadState(), applyMiddleware(thunkMiddleware));
 
 store.subscribe(() => {
     saveState({
@@ -26,6 +26,7 @@ store.subscribe(() => {
         profile: store.getState().profile,
     });
 })
+
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>

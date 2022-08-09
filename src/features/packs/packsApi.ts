@@ -4,7 +4,7 @@ import {sortPacks} from "../../common/TypeForSort";
 export const packsAPI = {
     getCards: (params: PackParamsType) => {
 
-        return instance.get<ResponseType>(`cards/pack`, {params: params})
+        return instance.get<ResponsePacksType>(`cards/pack`, {params: params})
     },
     createPack: (cardsPack: PackCreateType) => {
         return instance.post(`cards/pack`, {cardsPack})
@@ -29,7 +29,7 @@ export type PackUpdateType = {
     private?: boolean
 }
 
-export type CardPackType = {
+export type PackType = {
     cardsCount: number
     created: string
     deckCover: null
@@ -48,8 +48,8 @@ export type CardPackType = {
     _id: string
 }
 
-export type ResponseType = {
-    cardPacks: CardPackType[]
+export type ResponsePacksType = {
+    cardPacks: PackType[]
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number

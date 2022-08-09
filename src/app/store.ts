@@ -5,6 +5,7 @@ import {profileReducer} from "../features/profile/profile-reducer";
 import {appReducer} from "./app-reducer";
 import {packsReducer} from "../features/packs/packs-reducer";
 import {cardsReducer} from "../features/cards/cards-reducer";
+import {loadState, saveState} from "../common/utils/localStorage-utils";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -14,7 +15,18 @@ const rootReducer = combineReducers({
     cards: cardsReducer,
 })
 
-export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+export const store = createStore(rootReducer,loadState(), applyMiddleware(thunkMiddleware));
+
+store.subscribe(() => {
+    saveState({
+        cards: store.getState().cards,
+        packs: store.getState().packs,
+        app: store.getState().app,
+        auth: store.getState().auth,
+        profile: store.getState().profile,
+    });
+})
+
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>

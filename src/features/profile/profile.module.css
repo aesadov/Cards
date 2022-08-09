@@ -5,33 +5,6 @@
 
 
 
-.header {
-    height: 70px;
-    background-color: aqua;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding-left: 50px;
-}
-
-
-
-
-
-.personal {
-   display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 30px;
-
-}
-
-
-.avatar {
-    width: 200px;
-    height: 200px;
-    padding-top: 30px;
-}
 
 .nameInput {
     margin-top: 20px;

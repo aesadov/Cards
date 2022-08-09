@@ -1,15 +1,17 @@
 import React, {ChangeEvent, useState} from "react";
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+
 
 type EditableSpanPropsType = {
-    name: string,
-    callback: (name: string) => void,
+    name: string
+    callback: (name: string) => void
+    className?: string
 }
 
 export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
-    console.log('EditableSpan')
 
     const [name, setName] = useState(props.name)
-    let [editMode, setEditMode] = useState(false)
+    const [editMode, setEditMode] = useState(false)
 
 
     const activateEditMode = () => {
@@ -26,9 +28,9 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     }
 
     return (
-        <>
+        <h2 className={props.className}>
             {editMode ? <input value={name} onChange={onChangeTitleHandler} onBlur={activateViewMode} autoFocus/>
-                : <span onDoubleClick={activateEditMode}>{name || "not name"}</span>}
-        </>
+                : <span onDoubleClick={activateEditMode}>{name || "not name"} <EditTwoToneIcon/></span>}
+        </h2>
     )
 })

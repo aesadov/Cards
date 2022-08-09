@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@mui/material';
+import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField} from '@mui/material';
 import { useFormik } from 'formik';
 import {Link, Navigate} from 'react-router-dom';
 import { loginTC } from '../auth-reducer';
 import {useAppDispatch, useAppSelector} from '../../../common/hooks/hooks';
+import {Wrapper} from "../../../common/UniversalComponents/Wrapper";
 
 export const Login = () => {
 
@@ -48,12 +49,11 @@ export const Login = () => {
         return <Navigate to='/packs'/>
     }
 
-    return <Grid container justifyContent={'center'}>
-        <Grid item justifyContent={'center'}>
+    return <Wrapper>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
                     <FormLabel>
-                        <p>or use common test account credentials:</p>
+                        <p>Test account credentials:</p>
                         <p>Email: nya-admin@nya.nya</p>
                         <p>Password: 1qazxcvBG</p>
                     </FormLabel>
@@ -83,6 +83,5 @@ export const Login = () => {
                     </FormGroup>
                 </FormControl>
             </form>
-        </Grid>
-    </Grid>
+    </Wrapper>
 }

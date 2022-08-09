@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button, FormControl, FormGroup, FormLabel, Grid, TextField} from '@mui/material';
-import { useFormik } from 'formik';
+import {Button, FormControl, FormGroup, FormLabel, TextField} from '@mui/material';
+import {useFormik} from 'formik';
 import {Navigate, useParams} from 'react-router-dom';
 import {setNewPassTC} from '../auth-reducer';
 import {useAppDispatch, useAppSelector} from '../../../common/hooks/hooks';
+import {Wrapper} from "../../../common/UniversalComponents/Wrapper";
 
 export const NewPassword = () => {
 
@@ -37,32 +38,30 @@ export const NewPassword = () => {
         }
     })
 
-    if(changePassStatus){
+    if (changePassStatus) {
         return <Navigate to={'/login'}/>
     }
 
-    return <Grid container justifyContent={'center'}>
-        <Grid item justifyContent={'center'}>
-            <form onSubmit={formik.handleSubmit}>
-                <FormControl>
-                    <FormLabel>
-                        <p>Create new password</p>
-                    </FormLabel>
-                    <FormGroup>
-                        <TextField
-                            type='password'
-                            label='New password'
-                            margin='normal'
-                            {...formik.getFieldProps('newPassword')}
-                        />
-                        {formik.touched.newPassword && formik.errors.newPassword
-                            && <div style={{color: 'red'}}>{formik.errors.newPassword}</div>}
-                        <Button type={'submit'} variant={'contained'} color={'primary'}>Create new password</Button>
-                    </FormGroup>
-                </FormControl>
-            </form>
-        </Grid>
-    </Grid>
+    return <Wrapper>
+        <form onSubmit={formik.handleSubmit}>
+            <FormControl>
+                <FormLabel>
+                    <p>Create new password</p>
+                </FormLabel>
+                <FormGroup>
+                    <TextField
+                        type='password'
+                        label='New password'
+                        margin='normal'
+                        {...formik.getFieldProps('newPassword')}
+                    />
+                    {formik.touched.newPassword && formik.errors.newPassword
+                        && <div style={{color: 'red'}}>{formik.errors.newPassword}</div>}
+                    <Button type={'submit'} variant={'contained'} color={'primary'}>Create new password</Button>
+                </FormGroup>
+            </FormControl>
+        </form>
+    </Wrapper>
 }
 
 

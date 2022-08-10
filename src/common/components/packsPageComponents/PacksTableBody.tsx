@@ -13,6 +13,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {setPackId} from "../../../features/packs/packs-reducer";
 import {changeParamsCards} from "../../../features/cards/cards-reducer";
 import {setLearnCardsId} from "../../../features/learn/learn-reducer";
+import {formDate} from "../../utils/formDate-utils";
 
 type PropsType = {
     callbackUpdate?: () => void
@@ -36,12 +37,6 @@ export const PacksTableBody = ({callbackUpdate, callbackDelete}: PropsType) => {
     }
     const cardsPageHandler = (id: string) => {
         dispatch(changeParamsCards({cardsPack_id: id}))
-    }
-
-    const formDate = (date: string) => {
-        const newDate = new Date(date).getDate() < 10 ? '0' + new Date(date).getDate() : new Date(date).getDate()
-        const newMonth = new Date(date).getMonth() < 10 ? '0' + new Date(date).getMonth() : new Date(date).getMonth()
-        return `${newDate}-${newMonth}-${new Date(date).getFullYear()}`
     }
 
     return (

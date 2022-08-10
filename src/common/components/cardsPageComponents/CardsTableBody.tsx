@@ -9,6 +9,7 @@ import {Rating} from '@mui/material';
 import IconButton from "@mui/material/IconButton/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import {formDate} from "../../utils/formDate-utils";
 
 type CardsTableBodyType = {
     callbackUpdate?: (id: string) => void
@@ -36,7 +37,7 @@ export const CardsTableBody = ({callbackUpdate, callbackDelete}: CardsTableBodyT
             >
                 <TableCell component="th" scope="row">{card.question}</TableCell>
                 <TableCell align="right">{card.answer}</TableCell>
-                <TableCell align="right">{card.updated}</TableCell>
+                <TableCell align="right">{formDate(card.updated)}</TableCell>
                 <TableCell align="right">
                     <Rating name="card-grade" value={card.grade} readOnly/>
                 </TableCell>

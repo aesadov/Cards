@@ -35,13 +35,13 @@ export const CardsTableBody = ({callbackUpdate, callbackDelete}: CardsTableBodyT
                 key={card._id}
                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
             >
-                <TableCell component="th" scope="row">{card.question}</TableCell>
-                <TableCell align="right">{card.answer}</TableCell>
-                <TableCell align="right">{formDate(card.updated)}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{card.question}</TableCell>
+                <TableCell align="center">{card.answer}</TableCell>
+                <TableCell align="center">{formDate(card.updated)}</TableCell>
+                <TableCell align="center">
                     <Rating name="card-grade" value={card.grade} readOnly/>
                 </TableCell>
-                <TableCell align="right">
+                <TableCell align="center">
                     {userId === card.user_id && <> <IconButton aria-label="edit"
                                                                onClick={() => updateCard(card._id)}><EditIcon
                         color='info'/></IconButton>

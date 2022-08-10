@@ -48,7 +48,7 @@ export const CardsTable = () => {
         <> {modalUpdate && <ModalEditCard callback={()=>setModalUpdate(false)} id={updateId} modalUpdate={modalUpdate}/>}
             {cards.length > 0
             ? < div>
-                < TableContainer component={Paper}>
+                < TableContainer component={Paper} style={{marginTop: '40px'}}>
                     <Table sx={{minWidth: 650}} aria-label="simple table">
                         <HeaderTable data={nameColumn}/>
                         <CardsTableBody callbackUpdate={(id)=>{

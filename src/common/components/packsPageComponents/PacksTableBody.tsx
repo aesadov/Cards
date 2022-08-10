@@ -47,13 +47,13 @@ export const PacksTableBody = ({callbackUpdate, callbackDelete}: PropsType) => {
                         key={pack._id}
                         sx={{'&:last-child td, &:last-child th': {border: 0}}}
                     >
-                        <TableCell component="th" scope="row">
+                        <TableCell align={'center'}>
                             <Link onClick={() => cardsPageHandler(pack._id)} to={'/cards'}>{pack.name}</Link>
                         </TableCell>
-                        <TableCell align="right">{pack.cardsCount}</TableCell>
-                        <TableCell align="right">{formDate(pack.updated)}</TableCell>
-                        <TableCell align="right">{pack.user_name}</TableCell>
-                        <TableCell align="right">
+                        <TableCell align="center">{pack.cardsCount}</TableCell>
+                        <TableCell align="center">{formDate(pack.updated)}</TableCell>
+                        <TableCell align="center">{pack.user_name}</TableCell>
+                        <TableCell align="center">
                             <Link to={'/learn'}>
                                 <IconButton onClick={() => dispatch(setLearnCardsId(pack._id))}
                                             aria-label="learn"><LocalLibraryIcon color='info'/></IconButton>

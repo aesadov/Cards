@@ -8,6 +8,7 @@ import {ErrorSnackbar} from "../common/UniversalComponents/ErrorSnackbar/ErrorSn
 import {Header} from "../common/components/header/Header";
 import {RoutesForProject} from "../common/components/routes/RoutesForProject";
 import {Navlinks} from "../common/components/navlink/Navlinks";
+import {CircularProgress, LinearProgress} from "@mui/material";
 
 function App() {
 
@@ -15,18 +16,20 @@ function App() {
 
     const initial = useAppSelector(state => state.app.isInitialized)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const status = useAppSelector(state => state.app.status)
 
     useEffect(() =>{
         !isLoggedIn && dispatch(meThunkAC())
     },[])
 
     if(initial) {
-        return <h1 style={{textAlign: 'center', marginTop: '150px'}}>Loading...</h1>
+        return   <CircularProgress/>
     }
 
     return (
         <div className="App" style={{position: 'relative', height: '100vh'}}>
             <Header/>
+            {status === 'loading' && <LinearProgress/>}
             <ErrorSnackbar/>
             <Navlinks/>
             <RoutesForProject/>

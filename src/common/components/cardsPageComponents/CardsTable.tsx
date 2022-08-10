@@ -45,7 +45,7 @@ export const CardsTable = () => {
 
 
     return (
-        <> {modalUpdate && <ModalEditCard id={updateId} modalUpdate={modalUpdate}/>}
+        <> {modalUpdate && <ModalEditCard callback={()=>setModalUpdate(false)} id={updateId} modalUpdate={modalUpdate}/>}
             {cards.length > 0
             ? < div>
                 < TableContainer component={Paper}>

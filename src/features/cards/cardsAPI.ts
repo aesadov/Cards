@@ -44,6 +44,9 @@ export type CardType = {
     created: string
     updated: string
     _id: string
+    type: string,
+    rating: number,
+    more_id: string,
 }
 
 export type ResponseCardsType = {

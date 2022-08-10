@@ -10,12 +10,11 @@ import {changeCard} from "../../../../features/cards/cards-reducer";
 type ModalType = {
     modalUpdate: boolean
     id: string
+    callback: () => void
 }
 
+export const ModalEditCard = ({modalUpdate, id, callback}: ModalType) => {
 
-export const ModalEditCard = ({modalUpdate, id}: ModalType) => {
-
-    const [addModal, setAddModal] = useState<boolean>(modalUpdate)
     const [question, setQuestion] = useState<string>('')
     const [answer, setAnswer] = useState<string>('')
 
@@ -26,16 +25,16 @@ export const ModalEditCard = ({modalUpdate, id}: ModalType) => {
     }
 
     return (
-        <WrapperModal isOpen={addModal}>
+        <WrapperModal isOpen={modalUpdate}>
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <h2>Add new card</h2>
-                <IconButton onClick={() =>setAddModal(false)}>
+                <IconButton onClick={callback}>
                     <CloseIcon/>
                 </IconButton>
             </div>
             <InputModal text={question} label={'Question'} callback={(value) => setQuestion(value)}/>
             <InputModal text={answer} label={'Answer'} callback={(value) => setAnswer(value)}/>
-            <Button onClick={() =>setAddModal(false)} variant="outlined">
+            <Button onClick={callback} variant="outlined">
                 Cancel
             </Button>
             <Button onClick={editeCard} variant="contained">

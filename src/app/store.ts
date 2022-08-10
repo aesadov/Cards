@@ -6,6 +6,7 @@ import {appReducer} from "./app-reducer";
 import {packsReducer} from "../features/packs/packs-reducer";
 import {cardsReducer} from "../features/cards/cards-reducer";
 import {loadState, saveState} from "../common/utils/localStorage-utils";
+import {learnReducer} from "../features/learn/learn-reducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     app: appReducer,
     packs: packsReducer,
     cards: cardsReducer,
+    learn: learnReducer
 })
 
 export const store = createStore(rootReducer,loadState(), applyMiddleware(thunkMiddleware));
@@ -24,6 +26,7 @@ store.subscribe(() => {
         app: store.getState().app,
         auth: store.getState().auth,
         profile: store.getState().profile,
+        learn: store.getState().learn
     });
 })
 

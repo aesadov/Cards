@@ -1,9 +1,9 @@
 import React from 'react';
-import style from './LearnPage.module.css'
+import style from './ShowPage.module.css'
 import {Wrapper} from "../../UniversalComponents/Wrapper";
 
 
-const LearnPage = () => {
+const ShowLearnPage = () => {
     return (
         <Wrapper>
 
@@ -36,4 +36,4 @@ const LearnPage = () => {
     );
 };
 
-export default LearnPage;
+export default ShowLearnPage;

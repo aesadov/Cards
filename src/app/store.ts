@@ -15,17 +15,17 @@ const rootReducer = combineReducers({
     cards: cardsReducer,
 })
 
-export const store = createStore(rootReducer,loadState(), applyMiddleware(thunkMiddleware));
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-store.subscribe(() => {
-    saveState({
-        cards: store.getState().cards,
-        packs: store.getState().packs,
-        app: store.getState().app,
-        auth: store.getState().auth,
-        profile: store.getState().profile,
-    });
-})
+// store.subscribe(() => {
+//     saveState({
+//         cards: store.getState().cards,
+//         packs: store.getState().packs,
+//         app: store.getState().app,
+//         auth: store.getState().auth,
+//         profile: store.getState().profile,
+//     });
+// })
 
 
 export type AppRootStateType = ReturnType<typeof rootReducer>

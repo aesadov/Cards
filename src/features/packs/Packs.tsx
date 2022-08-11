@@ -5,6 +5,7 @@ import {setPacks} from "./packs-reducer";
 import {Navigate} from "react-router-dom";
 import {PacksTable} from "../../common/components/packsPageComponents/PacksTable";
 import {PacksHeader} from "../../common/components/packsPageComponents/PacksHeader";
+import {QuestionsForLearnPage} from "../../common/components/learnPageComponents/QuestionsForLearnPage";
 
 export const Packs = () => {
     // const [searchParams, setSearchParams] = useSearchParams()

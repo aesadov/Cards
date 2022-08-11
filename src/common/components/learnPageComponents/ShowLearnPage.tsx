@@ -15,7 +15,7 @@ const ShowLearnPage = () => {
 
 
                 <ul className={style.list}>
-                    <li><input type="radio"/><span>  Did not know</span></li>
+                    <li><input type="radio" value={1}/><span>  Did not know</span></li>
                     <li><input type="radio"/><span>  Forgot</span></li>
                     <li><input type="radio"/><span>  A lot of thought</span></li>
                     <li><input type="radio"/><span>  Confused</span></li>

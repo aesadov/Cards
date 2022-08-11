@@ -1,0 +1,51 @@
+.container {
+    width: 370px !important;
+    height: 210px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: left;
+
+
+}
+
+
+.learn {
+    padding-top: 20px;
+
+    align-self: center;
+}
+
+.question {
+    padding-top: 40px;
+}
+
+.answer {
+    padding-top: 15px;
+
+}
+
+.rate {
+    padding-top: 30px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.button {
+    background-color: cornflowerblue;
+    color: aliceblue;
+    padding: 5px 10px;
+    border-radius: 15px;
+    width: 100px;
+}

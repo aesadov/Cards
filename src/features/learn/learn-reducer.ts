@@ -13,7 +13,8 @@ const initialState = {
     token: '',
     tokenDeathTime: 0,
     cardsPack_id: '',
-    grade: 0
+    grade: 0,
+    packName: '',
 }
 
 
@@ -24,7 +25,7 @@ export const learnReducer = (state: InitialStateType = initialState, action: App
         case 'learn/SET_CARDS' :
             return {...state, cards: action.data.cards}
         case "learn/SET_CARDS_ID":
-            return {...state, cardsPack_id: action.cardsPack_id}
+            return {...state, cardsPack_id: action.cardsPack_id, packName: action.packName}
         case 'learn/SET_UPDATE_GRADE_CARD':
             return {...state, cards: state.cards.map(c => c._id === action.data.card_id ? {...c, grade: action.data.grade} : c)}
         default:
@@ -33,7 +34,7 @@ export const learnReducer = (state: InitialStateType = initialState, action: App
 }
 
 export const setLearnCards = (data: ResponseCardsType) => ({type: 'learn/SET_CARDS', data}) as const
-export const setLearnCardsId = (cardsPack_id: string) => ({type: 'learn/SET_CARDS_ID', cardsPack_id}) as const
+export const setLearnCardsId = (cardsPack_id: string, packName: string) => ({type: 'learn/SET_CARDS_ID', cardsPack_id, packName}) as const
 export const setUpdateGradeCard = (data: ResponseGradeType) => ({type: 'learn/SET_UPDATE_GRADE_CARD', data}) as const
 
 export const fetchLearnCards = (): AppThunk => async (dispatch, getState) => {

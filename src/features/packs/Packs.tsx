@@ -5,7 +5,6 @@ import {setPacks} from "./packs-reducer";
 import {Navigate} from "react-router-dom";
 import {PacksTable} from "../../common/components/packsPageComponents/PacksTable";
 import {PacksHeader} from "../../common/components/packsPageComponents/PacksHeader";
-import {CircularProgress} from "@mui/material";
 
 export const Packs = () => {
     // const [searchParams, setSearchParams] = useSearchParams()
@@ -22,6 +21,9 @@ export const Packs = () => {
         dispatch(setPacks())
     }, [params])//  в зависимости идут фильтрации, пагинации, и т.д.
 
+    if (status === 'loading') {
+        return <h1 style={{textAlign: 'center', marginTop: '150px'}}>Loading...</h1>
+    }
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }

@@ -7,11 +7,10 @@ import IconButton from '@mui/material/IconButton/IconButton';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {setPackId} from "../../../features/packs/packs-reducer";
-import {changeParamsCards} from "../../../features/cards/cards-reducer";
+import {changeParamsCards, setNamePack} from "../../../features/cards/cards-reducer";
 import {setLearnCardsId} from "../../../features/learn/learn-reducer";
 import {formDate} from "../../utils/formDate-utils";
 
@@ -35,8 +34,9 @@ export const PacksTableBody = ({callbackUpdate, callbackDelete}: PropsType) => {
         dispatch(setPackId(id))
         callbackUpdate && callbackUpdate()
     }
-    const cardsPageHandler = (id: string) => {
+    const cardsPageHandler = (id: string, name: string) => {
         dispatch(changeParamsCards({cardsPack_id: id}))
+        dispatch(setNamePack(name))
     }
 
     return (
@@ -48,7 +48,7 @@ export const PacksTableBody = ({callbackUpdate, callbackDelete}: PropsType) => {
                         sx={{'&:last-child td, &:last-child th': {border: 0}}}
                     >
                         <TableCell align={'center'}>
-                            <Link onClick={() => cardsPageHandler(pack._id)} to={'/cards'}>{pack.name}</Link>
+                            <Link onClick={() => cardsPageHandler(pack._id, pack.name)} to={'/cards'}>{pack.name}</Link>
                         </TableCell>
                         <TableCell align="center">{pack.cardsCount}</TableCell>
                         <TableCell align="center">{formDate(pack.updated)}</TableCell>

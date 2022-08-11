@@ -3,9 +3,11 @@ import {useAppDispatch, useAppSelector} from "../../common/hooks/hooks";
 import {fetchLearnCards, updateGradeLearnCards} from "./learn-reducer";
 import ShowLearnPage from "../../common/components/learnPageComponents/ShowLearnPage";
 import {CardType} from "../cards/cardsAPI";
-import {Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {getRandomCard} from "../../common/utils/getRandomCards";
 import {QuestionsForLearnPage} from "../../common/components/learnPageComponents/QuestionsForLearnPage";
+import style from "../../common/components/learnPageComponents/ShowPage.module.css";
+import {ArrowLeft} from "@mui/icons-material";
 
 export const Learn = () => {
 
@@ -31,11 +33,8 @@ export const Learn = () => {
 
     return (
         <div>
+            <Link to={'/packs'} className={style.backArrow}><ArrowLeft/> Back to pack list</Link>
             {!isChecked && <>
-                {/*<div>{card.question}</div>*/}
-                {/*<div>*/}
-                {/*    <button onClick={() => setIsChecked(true)}>check</button>*/}
-                {/*</div>*/}
                 <QuestionsForLearnPage question={card.question} callback={() => setIsChecked(true)}/>
 
             </>}

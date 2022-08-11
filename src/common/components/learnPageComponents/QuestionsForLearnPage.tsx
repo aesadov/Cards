@@ -15,12 +15,10 @@ export const QuestionsForLearnPage = ({question, callback}: QuestionType) => {
 
     return (
         <div>
+            <h1 className={style.learn}>Learn "{packName}"</h1>
             <Wrapper>
-
                 <div className={style.container}>
-                    <h1 className={style.learn}>Learn "{packName}"</h1>
                     <h4 className={style.question}>Question: {question}</h4>
-
                     <div className={style.buttons}>
                         <Link to={'/packs'}>
                             <button className={style.button}>
@@ -32,7 +30,6 @@ export const QuestionsForLearnPage = ({question, callback}: QuestionType) => {
                         </button>
                     </div>
                 </div>
-
             </Wrapper>
         </div>
     );

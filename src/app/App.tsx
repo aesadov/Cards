@@ -9,6 +9,7 @@ import {Header} from "../common/components/header/Header";
 import {RoutesForProject} from "../common/components/routes/RoutesForProject";
 import {Navlinks} from "../common/components/navlink/Navlinks";
 import {CircularProgress, LinearProgress} from "@mui/material";
+import style from "./App.module.css"
 
 function App() {
 
@@ -18,21 +19,23 @@ function App() {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const status = useAppSelector(state => state.app.status)
 
-    useEffect(() =>{
+    useEffect(() => {
         !isLoggedIn && dispatch(meThunkAC())
-    },[])
+    }, [])
 
-    if(initial) {
-        return   <CircularProgress/>
+    if (initial) {
+        return <CircularProgress/>
     }
 
     return (
-        <div className="App" style={{position: 'relative', height: '100vh'}}>
+        <div>
             <Header/>
             {status === 'loading' && <LinearProgress/>}
-            <ErrorSnackbar/>
+            <div className={style.container}>
+                <ErrorSnackbar/>
+                <RoutesForProject/>
+            </div>
             <Navlinks/>
-            <RoutesForProject/>
         </div>
     );
 }

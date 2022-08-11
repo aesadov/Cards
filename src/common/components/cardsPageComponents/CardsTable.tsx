@@ -10,6 +10,7 @@ import {PaginationComponent} from "../../UniversalComponents/tableComponent/Pagi
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {changeParamsCards} from "../../../features/cards/cards-reducer";
 import {ModalEditCard} from "../modals/cards/ModalEditCard";
+import {ModalDeleteCard} from "../modals/cards/ModalDeleteCard";
 
 
 const nameColumn: Array<{ name: string, isDone: boolean, sortName: NameCellType }> = [
@@ -24,6 +25,7 @@ export const CardsTable = () => {
 
     const [updateId, setUpdateId] = useState<string>('')
     const [modalUpdate, setModalUpdate] = useState<boolean>(false)
+    const [modalDelete, setModalDelete] = useState<boolean>(false)
 
     const dispatch = useAppDispatch()
 
@@ -46,12 +48,18 @@ export const CardsTable = () => {
 
     return (
         <> {modalUpdate && <ModalEditCard callback={()=>setModalUpdate(false)} id={updateId} modalUpdate={modalUpdate}/>}
+            {modalDelete && <ModalDeleteCard id={updateId}  callback={() => {setModalDelete(false)}} isOpen={modalDelete}/>}
             {cards.length > 0
             ? < div>
-                < TableContainer component={Paper} style={{marginTop: '40px'}}>
+                < TableContainer component={Paper}>
                     <Table sx={{minWidth: 650}} aria-label="simple table">
                         <HeaderTable data={nameColumn}/>
-                        <CardsTableBody callbackUpdate={(id)=>{
+                        <CardsTableBody callbackDelete={(id) => {
+                            setUpdateId(id)
+                            setModalDelete(true)
+
+                        }}
+                            callbackUpdate={(id)=>{
                             setUpdateId(id)
                             setModalUpdate(true)
                         }}/>

@@ -27,6 +27,7 @@ export const Packs = () => {
     }
 
     return (
+
         <div style={{
             maxWidth: '1250px',
             padding: '50px 20px',
@@ -34,8 +35,10 @@ export const Packs = () => {
             flexDirection: 'column',
             margin: '0 auto'
         }}>
+
             <PacksHeader/>
             <PacksTable/>
+
         </div>
     );
 };

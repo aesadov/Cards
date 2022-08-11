@@ -21,7 +21,7 @@ export const ShowPacksButton = ({callback, userId, className, paramsId}: ShowPro
         <div>
             <h2 style={{margin: '30px 0'}}>Show packs cards</h2>
             <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                <Button color={typeof filterPacks === 'string' ? "primary" :"inherit"} onClick={()=>onClickHandler(userId)}>My</Button>
+                <Button color={filterPacks ? "primary" :"inherit"} onClick={()=>onClickHandler(userId)}>My</Button>
                 <Button color={filterPacks === undefined ? "primary" :"inherit"}  onClick={()=>onClickHandler(undefined)}>All</Button>
             </ButtonGroup>
         </div>

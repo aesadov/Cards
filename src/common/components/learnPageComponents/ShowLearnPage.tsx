@@ -3,6 +3,7 @@ import style from './ShowPage.module.css'
 import {Wrapper} from "../../UniversalComponents/Wrapper";
 import {CardType} from "../../../features/cards/cardsAPI";
 import {useAppSelector} from "../../hooks/hooks";
+import {useNavigate} from "react-router-dom";
 
 const data = [
     {text: 'Did not know', id: 1},
@@ -19,6 +20,8 @@ type ShowType = {
 
 const ShowLearnPage = ({card, onNext}: ShowType) => {
 
+    const navigate = useNavigate()
+
     const packName = useAppSelector((store) => store.learn.packName);
 
     const [grade, setGrade] = useState<string>("")
@@ -29,6 +32,10 @@ const ShowLearnPage = ({card, onNext}: ShowType) => {
 
     const onClickHandler = () => {
         onNext(+grade)
+    }
+
+    const backNavigateHandler = () => {
+        navigate('/packs')
     }
 
     return (
@@ -49,7 +56,7 @@ const ShowLearnPage = ({card, onNext}: ShowType) => {
                     }
                 </ul>
                 <div className={style.buttons}>
-                    <button className={style.button}>
+                    <button onClick={backNavigateHandler} className={style.button}>
                         Cancel
                     </button>
                     <button type={"submit"} className={style.button} onClick={onClickHandler}>

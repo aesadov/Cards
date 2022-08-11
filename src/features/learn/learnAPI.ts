@@ -2,8 +2,8 @@ import {instance} from "../auth/authAPI";
 import {ResponseCardsType} from "../cards/cardsAPI";
 
 export const learnAPI = {
-    getLearnCards: (cardsPack_id: string) => {
-        return instance.get<ResponseCardsType>(`cards/card`, {params: {cardsPack_id, pageCount: 110}})
+    getLearnCards: (cardsPack_id: string, cardsTotalCount: number) => {
+        return instance.get<ResponseCardsType>(`cards/card`, {params: {cardsPack_id, pageCount: cardsTotalCount}})
     },
     updateGrade: (data: RequestGradeType) => {
         return instance.put<ResponseGradeType>(`cards/grade`, data)

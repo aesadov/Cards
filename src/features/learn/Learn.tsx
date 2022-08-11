@@ -5,6 +5,7 @@ import ShowLearnPage from "../../common/components/learnPageComponents/ShowLearn
 import {CardType} from "../cards/cardsAPI";
 import {Navigate} from "react-router-dom";
 import {getRandomCard} from "../../common/utils/getRandomCards";
+import {QuestionsForLearnPage} from "../../common/components/learnPageComponents/QuestionsForLearnPage";
 
 export const Learn = () => {
 
@@ -30,12 +31,12 @@ export const Learn = () => {
 
     return (
         <div>
-            LearnPage
             {!isChecked && <>
-                <div>{card.question}</div>
-                <div>
-                    <button onClick={() => setIsChecked(true)}>check</button>
-                </div>
+                {/*<div>{card.question}</div>*/}
+                {/*<div>*/}
+                {/*    <button onClick={() => setIsChecked(true)}>check</button>*/}
+                {/*</div>*/}
+                <QuestionsForLearnPage question={card.question} callback={() => setIsChecked(true)}/>
 
             </>}
             {isChecked &&<ShowLearnPage onNext={onNext} card={card}/>}

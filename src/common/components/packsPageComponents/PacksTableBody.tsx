@@ -55,7 +55,7 @@ export const PacksTableBody = ({callbackUpdate, callbackDelete}: PropsType) => {
                         <TableCell align="center">{pack.user_name}</TableCell>
                         <TableCell align="center">
                             <Link to={'/learn'}>
-                                <IconButton onClick={() => dispatch(setLearnCardsId(pack._id, pack.name))}
+                                <IconButton onClick={() => dispatch(setLearnCardsId(pack._id, pack.name, pack.cardsCount))}
                                             aria-label="learn"><LocalLibraryIcon color='info'/></IconButton>
                             </Link>
                             {userId === pack.user_id && <span>

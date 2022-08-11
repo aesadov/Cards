@@ -28,6 +28,7 @@ export const logoutThunkAC = (): AppThunk => async dispatch => {
     } catch(e: any) {
         dispatch(setLoginErrorStatusAC(e.response.data.error))
         dispatch(setAppStatusAC('succeeded'))
+        dispatch(setIsLoggedInAC(false))
     }
 }
 

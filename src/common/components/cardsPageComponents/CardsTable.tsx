@@ -10,20 +10,22 @@ import {PaginationComponent} from "../../UniversalComponents/tableComponent/Pagi
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {changeParamsCards} from "../../../features/cards/cards-reducer";
 import {ModalEditCard} from "../modals/cards/ModalEditCard";
+import {ModalDeleteCard} from "../modals/cards/ModalDeleteCard";
 
 
 const nameColumn: Array<{ name: string, isDone: boolean, sortName: NameCellType }> = [
-    {name: 'Question', isDone: false, sortName: 'update'},
-    {name: 'Answer', isDone: false, sortName: 'update'},
-    {name: 'Last Updated', isDone: true, sortName: 'update'},
-    {name: 'Grade', isDone: false, sortName: 'update'},
-    {name: 'Action', isDone: false, sortName: 'update'},
+    {name: 'Question', isDone: false, sortName: 'updateCard'},
+    {name: 'Answer', isDone: false, sortName: 'updateCard'},
+    {name: 'Last Updated', isDone: true, sortName: 'updateCard'},
+    {name: 'Grade', isDone: false, sortName: 'updateCard'},
+    {name: 'Action', isDone: false, sortName: 'updateCard'},
 ]
 
 export const CardsTable = () => {
 
     const [updateId, setUpdateId] = useState<string>('')
     const [modalUpdate, setModalUpdate] = useState<boolean>(false)
+    const [modalDelete, setModalDelete] = useState<boolean>(false)
 
     const dispatch = useAppDispatch()
 
@@ -32,6 +34,7 @@ export const CardsTable = () => {
     const cardsPack_id = useAppSelector(state => state.cards.params.cardsPack_id)
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
     const cards = useAppSelector((state) => state.cards.cards)
+    console.log(cards)
 
     const changePageNumberHandler = (page: number) => {
         dispatch(changeParamsCards({page, cardsPack_id}))
@@ -45,26 +48,36 @@ export const CardsTable = () => {
 
 
     return (
-        <> {modalUpdate && <ModalEditCard id={updateId} modalUpdate={modalUpdate}/>}
+        <> {modalUpdate &&
+            <ModalEditCard callback={() => setModalUpdate(false)} id={updateId} modalUpdate={modalUpdate}/>}
+            {modalDelete && <ModalDeleteCard id={updateId} callback={() => {
+                setModalDelete(false)
+            }} isOpen={modalDelete}/>}
             {cards.length > 0
-            ? < div>
-                < TableContainer component={Paper}>
-                    <Table sx={{minWidth: 650}} aria-label="simple table">
-                        <HeaderTable data={nameColumn}/>
-                        <CardsTableBody callbackUpdate={(id)=>{
-                            setUpdateId(id)
-                            setModalUpdate(true)
-                        }}/>
-                    </Table>
-                </TableContainer>
+                ? < div style={{marginTop: '30px'}}>
+                    < TableContainer component={Paper}>
+                        <Table sx={{minWidth: 650}} aria-label="simple table">
+                            <HeaderTable data={nameColumn}/>
+                            <CardsTableBody
+                                callbackDelete={(id) => {
+                                    setUpdateId(id)
+                                    setModalDelete(true)
 
-                <div style={{display: "flex", marginTop: " 20px", alignItems: "center", gap: "20px"}}>
-                    <PaginationComponent pageCount={pageTotalCount} page={page} callback={changePageNumberHandler}/>
-                    <PageCount callback={changePageSizeHandler} pageCount={pageCount}/>
+                                }}
+                                callbackUpdate={(id) => {
+                                    setUpdateId(id)
+                                    setModalUpdate(true)
+                                }}/>
+                        </Table>
+                    </TableContainer>
+
+                    <div style={{display: "flex", marginTop: " 20px", alignItems: "center", gap: "20px"}}>
+                        <PaginationComponent pageCount={pageTotalCount} page={page} callback={changePageNumberHandler}/>
+                        <PageCount callback={changePageSizeHandler} pageCount={pageCount}/>
+                    </div>
                 </div>
-            </div>
-            : <h1 style={{marginTop: '50px'}}>This pack is empty</h1>
-        }
+                : <h1 style={{marginTop: '50px'}}>This pack is empty</h1>
+            }
         </>
     );
 };

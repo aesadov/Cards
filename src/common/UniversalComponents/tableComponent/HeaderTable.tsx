@@ -15,8 +15,7 @@ export const HeaderTable = (props: HeaderType) => {
 
     const headerRow = props.data.map((a, i) => {
         return (
-            <TableCell align={'center'}
-                       key={i}>
+            <TableCell align={'center'} key={i}>
                 {a.name} {a.isDone && <SortButton nameHeaderCell={a.sortName}/>}
             </TableCell>
         )

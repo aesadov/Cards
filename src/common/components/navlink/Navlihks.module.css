@@ -1,10 +1,12 @@
 .active{
-    color: gold;
+    padding-right: 20px;
+    color: #0070d1;
 }
-.items{
-    color: black;
+.item{
+    padding-right: 20px;
+    color: #656565;
 }
 .body{
     display: flex;
-    margin: 0 0 20px 30px;
+    margin: 0 0 20px 85px;
 }
